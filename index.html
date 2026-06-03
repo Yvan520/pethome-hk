@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawCity HK — 香港寵物資訊平台</title>
+<meta name="description" content="PawCity HK 我哋幫你搜羅全港最齊嘅寵物好去處地點、養寵貼士、法例須知同健康護理資訊，等你同毛孩喺香港生活得開心啲。">
+<meta name="google-site-verification" content="REPLACE_ME">
+<link rel="canonical" href="https://pethome.gamewayz.com/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<meta property="og:title" content="PawCity HK — 香港寵物資訊平台">
+<meta property="og:description" content="一站式香港寵物資訊平台，搜羅全港寵物好去處、養寵貼士、法例須知同健康護理資訊。">
+<meta property="og:url" content="https://pethome.gamewayz.com/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://pethome.gamewayz.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #FF6B5A;
+  --coral-light: #FF8A7A;
+  --peach: #FFB59E;
+  --cream: #FFF8F3;
+  --warm-white: #FFFCFA;
+  --charcoal: #2D2A26;
+  --dark: #1A1714;
+  --gold: #D4A853;
+  --gold-light: #F0D68A;
+  --sage: #A8B5A0;
+  --sage-light: #E2F0DC;
+  --sky: #87CEEB;
+  --sky-light: #D6F0FF;
+  --lavender: #C3B1E1;
+  --lavender-light: #E8DEFF;
+  --mint: #7EC8A0;
+  --mint-light: #D6F5E3;
+  --glass: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-soft: 0 8px 32px rgba(0,0,0,0.06);
+  --shadow-medium: 0 16px 48px rgba(0,0,0,0.10);
+  --shadow-heavy: 0 24px 64px rgba(0,0,0,0.14);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 28px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { 
+  background: linear-gradient(var(--coral), var(--gold)); 
+  border-radius: 4px; 
+}
+
+/* ===== LOADER ===== */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--dark);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.loader.hidden { opacity: 0; visibility: hidden; }
+.loader-paw {
+  width: 60px; height: 60px;
+  animation: pawBounce 1s ease-in-out infinite;
+}
+.loader-paw svg { width: 100%; height: 100%; fill: var(--coral); }
+.loader-text {
+  color: rgba(255,255,255,0.5); font-size: 13px;
+  margin-top: 20px; letter-spacing: 4px;
+}
+.loader-progress {
+  width: 120px; height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px; margin-top: 16px; overflow: hidden;
+}
+.loader-progress-bar {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--coral), var(--gold));
+  border-radius: 3px;
+  animation: loadBar 2s ease forwards;
+}
+@keyframes loadBar { to { width: 100%; } }
+@keyframes pawBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.1); }
+}
+
+/* ===== FLOATING PAWS ===== */
+.paw-particles {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; overflow: hidden;
+}
+.paw-particle {
+  position: absolute; opacity: 0.035;
+  font-size: 20px;
+  animation: floatPaw linear infinite;
+}
+@keyframes floatPaw {
+  0% { transform: translateY(110vh) rotate(0deg); }
+  100% { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000; padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav.scrolled {
+  padding: 12px 48px;
+  background: rgba(255, 252, 250, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 40px rgba(0,0,0,0.05);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: white;
+  transition: color 0.4s;
+}
+.nav.scrolled .nav-logo { color: var(--charcoal); }
+.nav-logo-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 15px rgba(255, 107, 90, 0.4);
+  transition: transform 0.3s;
+}
+.nav-logo-icon:hover { transform: rotate(-10deg) scale(1.1); }
+.nav-logo-text { font-weight: 900; font-size: 22px; letter-spacing: -0.5px; }
+.nav-logo-text span {
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: rgba(255,255,255,0.8);
+  font-size: 14px; font-weight: 500;
+  position: relative; transition: color 0.3s; padding: 4px 0;
+}
+.nav.scrolled .nav-links a { color: var(--charcoal); }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--coral), var(--gold));
+  border-radius: 2px; transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--coral); }
+
+.nav-cta {
+  padding: 10px 24px !important;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C) !important;
+  color: white !important; border-radius: 50px;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 20px rgba(255, 107, 90, 0.35);
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 30px rgba(255, 107, 90, 0.5) !important;
+}
+
+.nav-mobile-btn {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 5px;
+}
+.nav-mobile-btn span {
+  width: 24px; height: 2px; background: white;
+  border-radius: 2px; transition: all 0.3s;
+}
+.nav.scrolled .nav-mobile-btn span { background: var(--charcoal); }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative; min-height: 100vh;
+  overflow: hidden; display: flex; align-items: center;
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-slide {
+  position: absolute; inset: 0; opacity: 0; z-index: 0;
+  transition: opacity 1.5s ease;
+}
+.hero-slide.active { opacity: 1; z-index: 1; }
+.hero-slide img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.05);
+  animation: heroZoom 10s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.12); }
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: 
+    linear-gradient(135deg, rgba(26,23,20,0.72) 0%, rgba(26,23,20,0.25) 60%, transparent 100%),
+    linear-gradient(to top, rgba(26,23,20,0.5) 0%, transparent 35%);
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 48px 120px; max-width: 750px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50px;
+  color: rgba(255,255,255,0.9);
+  font-size: 13px; font-weight: 500;
+  margin-bottom: 28px; letter-spacing: 1px;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px; background: #4ADE80;
+  border-radius: 50%; animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero-title {
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 900; color: white; line-height: 1.15;
+  margin-bottom: 24px;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+.hero-title .accent {
+  background: linear-gradient(135deg, var(--coral-light), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-title .handwritten {
+  font-family: 'Playfair Display', serif; font-style: italic;
+}
+
+.hero-desc {
+  font-size: 17px; color: rgba(255,255,255,0.72);
+  line-height: 1.85; max-width: 540px; margin-bottom: 40px;
+  font-weight: 300;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 1.1s;
+}
+.btn-primary {
+  padding: 16px 36px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C);
+  color: white; border: none; border-radius: 50px;
+  font-size: 16px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; transition: all 0.4s;
+  box-shadow: 0 8px 32px rgba(255, 107, 90, 0.35);
+  font-family: inherit;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255, 107, 90, 0.5);
+}
+.btn-secondary {
+  padding: 16px 36px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  color: white; border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50px; font-size: 16px; font-weight: 500;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; transition: all 0.3s; font-family: inherit;
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.2); transform: translateY(-2px);
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Hero Search Bar */
+.hero-search {
+  margin-top: 28px;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 1.3s;
+}
+.hero-search-bar {
+  display: flex; align-items: center;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 60px;
+  padding: 6px 6px 6px 24px;
+  max-width: 520px;
+  transition: all 0.3s;
+}
+.hero-search-bar:focus-within {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.3);
+}
+.hero-search-bar input {
+  flex: 1; background: none; border: none; outline: none;
+  color: white; font-size: 15px; font-family: inherit;
+  padding: 10px 0;
+}
+.hero-search-bar input::placeholder { color: rgba(255,255,255,0.5); }
+.hero-search-btn {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C);
+  color: white; border: none; border-radius: 50px;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: all 0.3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-search-btn:hover { box-shadow: 0 4px 20px rgba(255,107,90,0.4); }
+
+.hero-tags {
+  display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards 1.5s;
+}
+.hero-tag {
+  padding: 6px 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 50px;
+  color: rgba(255,255,255,0.65);
+  font-size: 12px; cursor: pointer;
+  transition: all 0.3s;
+}
+.hero-tag:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+/* Hero Stats */
+.hero-stats {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  padding: 24px 48px;
+  display: flex; justify-content: center; gap: 60px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.hero-stat { text-align: center; color: white; }
+.hero-stat-number {
+  font-size: 30px; font-weight: 900;
+  background: linear-gradient(135deg, var(--coral-light), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-stat-label {
+  font-size: 12px; color: rgba(255,255,255,0.55);
+  margin-top: 4px; letter-spacing: 1px;
+}
+
+/* Hero slide indicators */
+.hero-indicators {
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%); z-index: 3;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.hero-indicator {
+  width: 3px; height: 30px;
+  background: rgba(255,255,255,0.2); border-radius: 3px;
+  cursor: pointer; transition: all 0.4s;
+}
+.hero-indicator.active { height: 50px; background: var(--coral); }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute; bottom: 100px; left: 50%;
+  transform: translateX(-50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 3px;
+  animation: fadeUp 0.8s ease forwards 1.5s; opacity: 0;
+}
+.scroll-mouse {
+  width: 24px; height: 38px;
+  border: 2px solid rgba(255,255,255,0.25); border-radius: 12px;
+  position: relative;
+}
+.scroll-mouse::after {
+  content: ''; position: absolute; top: 6px; left: 50%;
+  transform: translateX(-50%); width: 3px; height: 8px;
+  background: var(--coral); border-radius: 3px;
+  animation: scrollDown 2s ease-in-out infinite;
+}
+@keyframes scrollDown {
+  0%, 100% { opacity: 1; top: 6px; }
+  50% { opacity: 0.3; top: 18px; }
+}
+
+/* ===== SECTION COMMON ===== */
+section { position: relative; z-index: 2; }
+.section-padding { padding: 100px 48px; }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--coral); margin-bottom: 16px;
+}
+.section-tag::before, .section-tag::after {
+  content: ''; width: 30px; height: 1px;
+  background: var(--coral); opacity: 0.4;
+}
+.section-title {
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 900; color: var(--charcoal);
+  line-height: 1.25; margin-bottom: 16px;
+}
+.section-title .accent {
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.section-subtitle {
+  font-size: 16px; color: #8A8580;
+  max-width: 540px; margin: 0 auto;
+  line-height: 1.8; font-weight: 300;
+}
+
+/* ===== CATEGORY NAV (Quick Access) ===== */
+.categories-section {
+  background: var(--warm-white);
+  padding: 60px 48px;
+}
+.categories-scroll {
+  display: flex; gap: 20px;
+  overflow-x: auto; padding: 10px 0 20px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  max-width: 1200px; margin: 0 auto;
+}
+.categories-scroll::-webkit-scrollbar { display: none; }
+
+.category-pill {
+  min-width: 160px;
+  padding: 24px 20px;
+  background: white;
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  text-decoration: none; color: inherit; display: block;
+}
+.category-pill:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--coral);
+}
+.category-pill.active {
+  background: linear-gradient(135deg, var(--coral), #FF8A5C);
+  border-color: var(--coral);
+}
+.category-pill.active .category-pill-icon { background: rgba(255,255,255,0.2); }
+.category-pill.active .category-pill-name { color: white; }
+.category-pill.active .category-pill-count { color: rgba(255,255,255,0.7); }
+
+.category-pill-icon {
+  width: 56px; height: 56px;
+  border-radius: 18px;
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  transition: all 0.3s;
+}
+.category-pill-icon.bg-coral { background: #FFE5E0; }
+.category-pill-icon.bg-gold { background: #FFF3D6; }
+.category-pill-icon.bg-sage { background: #E2F0DC; }
+.category-pill-icon.bg-sky { background: #D6F0FF; }
+.category-pill-icon.bg-lavender { background: #E8DEFF; }
+.category-pill-icon.bg-mint { background: #D6F5E3; }
+.category-pill-icon.bg-peach { background: #FFE8D6; }
+
+.category-pill-name {
+  font-size: 14px; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 4px;
+}
+.category-pill-count {
+  font-size: 12px; color: #aaa;
+}
+
+/* ===== FEATURED ARTICLES ===== */
+.featured-section { background: var(--cream); }
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+  max-width: 1200px; margin: 0 auto;
+}
+.featured-main {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  min-height: 500px;
+  transition: transform 0.5s;
+  text-decoration: none; color: inherit;
+}
+.featured-main:hover { transform: scale(1.01); }
+.featured-main:hover .featured-main-img { transform: scale(1.06); }
+.featured-main-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s;
+  position: absolute; inset: 0;
+}
+.featured-main-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,23,20,0.85) 0%, rgba(26,23,20,0.1) 60%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 40px;
+}
+.featured-main-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px;
+  background: var(--coral);
+  color: white; border-radius: 50px;
+  font-size: 12px; font-weight: 600;
+  width: fit-content; margin-bottom: 16px;
+}
+.featured-main-overlay h2 {
+  font-size: 28px; font-weight: 900; color: white;
+  line-height: 1.35; margin-bottom: 12px;
+}
+.featured-main-overlay p {
+  font-size: 15px; color: rgba(255,255,255,0.7);
+  line-height: 1.7; margin-bottom: 20px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.featured-main-meta {
+  display: flex; align-items: center; gap: 16px;
+  color: rgba(255,255,255,0.5); font-size: 13px;
+}
+.featured-main-meta img {
+  width: 32px; height: 32px; border-radius: 50%;
+  object-fit: cover; border: 2px solid rgba(255,255,255,0.2);
+}
+
+.featured-side {
+  display: flex; flex-direction: column; gap: 20px;
+}
+.featured-side-card {
+  display: flex; gap: 16px;
+  background: white; border-radius: var(--radius);
+  overflow: hidden; cursor: pointer;
+  transition: all 0.4s;
+  border: 1px solid rgba(0,0,0,0.03);
+  flex: 1;
+  text-decoration: none; color: inherit;
+}
+.featured-side-card:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow-soft);
+}
+.featured-side-img {
+  width: 140px; min-height: 120px; flex-shrink: 0;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.featured-side-card:hover .featured-side-img { transform: scale(1.05); }
+.featured-side-img-wrapper {
+  width: 140px; min-height: 120px; flex-shrink: 0;
+  overflow: hidden;
+}
+.featured-side-body {
+  padding: 16px 16px 16px 0;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.featured-side-tag {
+  font-size: 11px; font-weight: 600;
+  color: var(--coral); margin-bottom: 8px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.featured-side-body h3 {
+  font-size: 15px; font-weight: 700;
+  line-height: 1.45; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.featured-side-body p {
+  font-size: 12px; color: #aaa;
+}
+
+/* ===== PET-FRIENDLY PLACES ===== */
+.places-section { background: var(--warm-white); }
+.places-tabs {
+  display: flex; justify-content: center; gap: 8px;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.places-tab {
+  padding: 10px 24px;
+  background: white; border: 2px solid transparent;
+  border-radius: 50px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s;
+  font-family: inherit; color: #8A8580;
+}
+.places-tab:hover { border-color: var(--coral); color: var(--coral); }
+.places-tab.active {
+  background: var(--coral); color: white;
+  border-color: var(--coral);
+}
+
+.places-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; max-width: 1200px; margin: 0 auto;
+}
+.place-card {
+  background: white; border-radius: var(--radius);
+  overflow: hidden; transition: all 0.4s;
+  cursor: pointer; border: 1px solid rgba(0,0,0,0.03);
+  text-decoration: none; color: inherit;
+}
+.place-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+}
+.place-card-img {
+  position: relative; height: 200px; overflow: hidden;
+}
+.place-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.place-card:hover .place-card-img img { transform: scale(1.06); }
+.place-card-badge {
+  position: absolute; top: 14px; left: 14px;
+  padding: 5px 14px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-size: 11px; font-weight: 600;
+  color: var(--coral);
+}
+.place-card-rating {
+  position: absolute; top: 14px; right: 14px;
+  padding: 5px 12px;
+  background: rgba(26,23,20,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-size: 12px; font-weight: 600;
+  color: var(--gold-light);
+  display: flex; align-items: center; gap: 4px;
+}
+.place-card-body { padding: 20px; }
+.place-card-body h3 {
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.place-card-location {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: #aaa; margin-bottom: 12px;
+}
+.place-card-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.place-card-tags span {
+  padding: 4px 12px;
+  background: #FFF0EB;
+  border-radius: 50px;
+  font-size: 11px; color: var(--coral);
+  font-weight: 500;
+}
+.place-card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 14px; border-top: 1px solid #f5f0eb;
+}
+.place-card-footer span {
+  font-size: 12px; color: #aaa;
+}
+.place-card-save {
+  width: 36px; height: 36px;
+  border-radius: 50%; background: #FFF0EB;
+  border: none; color: var(--coral);
+  font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.place-card-save:hover {
+  background: var(--coral); color: white;
+}
+
+/* ===== KNOWLEDGE / GUIDE ===== */
+.knowledge-section { background: var(--cream); }
+.knowledge-layout {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 40px; max-width: 1200px; margin: 0 auto;
+}
+.knowledge-sidebar {
+  position: sticky; top: 100px; align-self: start;
+}
+.knowledge-sidebar-card {
+  background: white; border-radius: var(--radius);
+  padding: 28px; border: 1px solid rgba(0,0,0,0.03);
+}
+.knowledge-sidebar-card h4 {
+  font-size: 16px; font-weight: 700; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.knowledge-topic {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: all 0.3s;
+  margin-bottom: 4px;
+  text-decoration: none; color: inherit;
+}
+.knowledge-topic:hover { background: #FFF0EB; }
+.knowledge-topic.active {
+  background: linear-gradient(135deg, #FFF0EB, #FFE8E0);
+}
+.knowledge-topic-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.knowledge-topic-icon.coral { background: #FFE5E0; }
+.knowledge-topic-icon.gold { background: #FFF3D6; }
+.knowledge-topic-icon.sage { background: #E2F0DC; }
+.knowledge-topic-icon.sky { background: #D6F0FF; }
+.knowledge-topic-icon.lavender { background: #E8DEFF; }
+.knowledge-topic-icon.mint { background: #D6F5E3; }
+
+.knowledge-topic-text h5 {
+  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+}
+.knowledge-topic-text span {
+  font-size: 11px; color: #aaa;
+}
+
+.knowledge-content {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.knowledge-card {
+  background: white; border-radius: var(--radius);
+  overflow: hidden; transition: all 0.4s;
+  cursor: pointer; border: 1px solid rgba(0,0,0,0.03);
+  text-decoration: none; color: inherit;
+}
+.knowledge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+.knowledge-card-img {
+  height: 180px; overflow: hidden; position: relative;
+}
+.knowledge-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.knowledge-card:hover .knowledge-card-img img { transform: scale(1.06); }
+.knowledge-card-category {
+  position: absolute; bottom: 12px; left: 12px;
+  padding: 5px 14px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-size: 11px; font-weight: 600;
+  color: var(--coral);
+}
+.knowledge-card-body { padding: 20px; }
+.knowledge-card-body h3 {
+  font-size: 16px; font-weight: 700;
+  line-height: 1.45; margin-bottom: 10px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.knowledge-card-body p {
+  font-size: 13px; color: #8A8580;
+  line-height: 1.7; margin-bottom: 16px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.knowledge-card-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: #bbb;
+}
+.knowledge-card-meta .read-time {
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ===== HK PET RULES (Important!) ===== */
+.rules-section {
+  background: linear-gradient(135deg, #1A1714 0%, #2D2A26 100%);
+  color: white; position: relative; overflow: hidden;
+}
+.rules-section::before {
+  content: ''; position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,107,90,0.08), transparent 70%);
+  border-radius: 50%;
+}
+.rules-section .section-tag { color: var(--coral-light); }
+.rules-section .section-title { color: white; }
+.rules-section .section-subtitle { color: rgba(255,255,255,0.5); }
+
+.rules-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px; max-width: 1000px; margin: 0 auto;
+}
+.rule-card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: all 0.4s;
+  cursor: pointer;
+  text-decoration: none; color: inherit;
+}
+.rule-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,107,90,0.3);
+  transform: translateY(-4px);
+}
+.rule-card-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 16px;
+}
+.rule-card-icon {
+  width: 52px; height: 52px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.rule-card-icon.red { background: rgba(255,107,90,0.15); }
+.rule-card-icon.green { background: rgba(74,222,128,0.15); }
+.rule-card-icon.gold { background: rgba(212,168,83,0.15); }
+.rule-card-icon.sky { background: rgba(135,206,235,0.15); }
+
+.rule-card-header h3 {
+  font-size: 18px; font-weight: 700; color: white;
+}
+.rule-card p {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  line-height: 1.8; margin-bottom: 16px;
+}
+.rule-card-tags {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.rule-card-tags span {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50px;
+  font-size: 11px; color: rgba(255,255,255,0.4);
+}
+
+/* ===== PET HEALTH GUIDE ===== */
+.health-section { background: var(--warm-white); }
+.health-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 24px; max-width: 1200px; margin: 0 auto;
+}
+.health-card {
+  background: white; border-radius: var(--radius);
+  padding: 32px 24px; text-align: center;
+  transition: all 0.4s; cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.03);
+  position: relative; overflow: hidden;
+  text-decoration: none; color: inherit;
+}
+.health-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--coral), var(--gold));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.health-card:hover::before { transform: scaleX(1); }
+.health-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-medium);
+}
+.health-card-icon {
+  width: 72px; height: 72px; border-radius: 22px;
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  transition: transform 0.3s;
+}
+.health-card:hover .health-card-icon { transform: scale(1.1) rotate(-5deg); }
+.health-card-icon.coral { background: linear-gradient(135deg, #FFE5E0, #FFCFC6); }
+.health-card-icon.gold { background: linear-gradient(135deg, #FFF3D6, #FFE4A8); }
+.health-card-icon.sage { background: linear-gradient(135deg, #E2F0DC, #C8DEBC); }
+.health-card-icon.sky { background: linear-gradient(135deg, #D6F0FF, #B0DFFF); }
+.health-card-icon.lavender { background: linear-gradient(135deg, #E8DEFF, #D4C2F7); }
+.health-card-icon.mint { background: linear-gradient(135deg, #D6F5E3, #B5E8CC); }
+.health-card-icon.peach { background: linear-gradient(135deg, #FFE8D6, #FFD5B5); }
+.health-card-icon.pink { background: linear-gradient(135deg, #FFE0EC, #FFC6D9); }
+
+.health-card h3 {
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.health-card p {
+  font-size: 13px; color: #8A8580;
+  line-height: 1.7; margin-bottom: 16px;
+}
+.health-card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--coral); font-weight: 600;
+  font-size: 13px; text-decoration: none;
+  transition: gap 0.3s;
+}
+.health-card-link:hover { gap: 10px; }
+
+/* ===== EVENTS / ACTIVITIES ===== */
+.events-section { background: var(--cream); }
+.events-timeline {
+  max-width: 900px; margin: 0 auto;
+  position: relative;
+}
+.events-timeline::before {
+  content: ''; position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--coral), var(--gold), var(--sage));
+  transform: translateX(-50%);
+}
+.event-item {
+  display: flex; gap: 48px;
+  margin-bottom: 48px;
+  position: relative;
+  align-items: center;
+}
+.event-item:nth-child(even) { flex-direction: row-reverse; }
+.event-dot {
+  position: absolute; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 20px;
+  background: white;
+  border: 4px solid var(--coral);
+  border-radius: 50%;
+  z-index: 2;
+}
+.event-card {
+  flex: 1;
+  background: white; border-radius: var(--radius);
+  overflow: hidden; transition: all 0.4s;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.03);
+  text-decoration: none; color: inherit;
+}
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+.event-card-img {
+  height: 180px; overflow: hidden; position: relative;
+}
+.event-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.event-card:hover .event-card-img img { transform: scale(1.06); }
+.event-date-badge {
+  position: absolute; top: 14px; left: 14px;
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.event-date-badge .day {
+  font-size: 20px; font-weight: 900;
+  color: var(--coral); line-height: 1;
+}
+.event-date-badge .month {
+  font-size: 10px; font-weight: 600;
+  color: #8A8580; text-transform: uppercase;
+}
+.event-card-body { padding: 20px; }
+.event-card-body h3 {
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.event-card-body p {
+  font-size: 13px; color: #8A8580;
+  line-height: 1.7; margin-bottom: 12px;
+}
+.event-meta {
+  display: flex; gap: 16px;
+  font-size: 12px; color: #aaa;
+}
+.event-meta span {
+  display: flex; align-items: center; gap: 4px;
+}
+.event-spacer { flex: 1; }
+
+/* ===== NEWSLETTER ===== */
+.newsletter-section {
+  padding: 100px 48px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C, var(--gold));
+  position: relative; overflow: hidden;
+}
+.newsletter-section::before {
+  content: '🐾'; position: absolute;
+  font-size: 300px; opacity: 0.08;
+  top: -60px; right: -40px;
+}
+.newsletter-inner {
+  max-width: 640px; margin: 0 auto;
+  text-align: center; position: relative; z-index: 1;
+}
+.newsletter-inner h2 {
+  font-size: 38px; font-weight: 900;
+  color: white; margin-bottom: 16px;
+}
+.newsletter-inner p {
+  font-size: 16px; color: rgba(255,255,255,0.85);
+  margin-bottom: 36px; line-height: 1.7;
+}
+.newsletter-form {
+  display: flex; gap: 12px;
+  max-width: 480px; margin: 0 auto;
+}
+.newsletter-form input {
+  flex: 1; padding: 16px 24px;
+  border: none; border-radius: 50px;
+  font-size: 15px; font-family: inherit;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  color: white; outline: none;
+}
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.6); }
+.newsletter-form button {
+  padding: 16px 32px;
+  background: white; color: var(--coral);
+  border: none; border-radius: 50px;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.3s;
+  font-family: inherit; white-space: nowrap;
+}
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--dark); color: white;
+  padding: 80px 48px 40px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; max-width: 1200px; margin: 0 auto 60px;
+}
+.footer-brand p {
+  font-size: 14px; color: rgba(255,255,255,0.45);
+  line-height: 1.8; margin: 16px 0 24px; max-width: 300px;
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-social {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  font-size: 16px; transition: all 0.3s;
+}
+.footer-social:hover {
+  background: var(--coral); border-color: var(--coral);
+  color: white; transform: translateY(-3px);
+}
+.footer-col h4 {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 24px; color: rgba(255,255,255,0.8);
+}
+.footer-col ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.footer-col a {
+  color: rgba(255,255,255,0.4); text-decoration: none;
+  font-size: 14px; transition: all 0.3s;
+}
+.footer-col a:hover { color: var(--coral-light); padding-left: 6px; }
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.25); }
+.footer-bottom-links { display: flex; gap: 24px; }
+.footer-bottom-links a {
+  font-size: 13px; color: rgba(255,255,255,0.25);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-bottom-links a:hover { color: var(--coral); }
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+  position: fixed; bottom: 32px; right: 32px;
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C);
+  color: white; border: none; border-radius: 50%;
+  font-size: 20px; cursor: pointer; z-index: 999;
+  opacity: 0; visibility: hidden; transform: translateY(20px);
+  transition: all 0.4s;
+  box-shadow: 0 8px 30px rgba(255, 107, 90, 0.35);
+  display: flex; align-items: center; justify-content: center;
+}
+.back-to-top.visible {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255, 107, 90, 0.5);
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.stagger-children > * {
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stagger-children.visible > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(5) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(6) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(7) { transition-delay: 0.35s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(8) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; inset: 0;
+  background: rgba(26, 23, 20, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 28px;
+  opacity: 0; visibility: hidden; transition: all 0.4s;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu a {
+  color: white; text-decoration: none;
+  font-size: 26px; font-weight: 700;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--coral); }
+.mobile-menu-close {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none;
+  color: white; font-size: 32px; cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .featured-grid { grid-template-columns: 1fr; }
+  .featured-main { min-height: 400px; }
+  .featured-side { flex-direction: row; overflow-x: auto; }
+  .featured-side-card { min-width: 300px; flex-shrink: 0; }
+  .places-grid { grid-template-columns: repeat(2, 1fr); }
+  .knowledge-layout { grid-template-columns: 1fr; }
+  .knowledge-sidebar { position: static; }
+  .knowledge-content { grid-template-columns: repeat(2, 1fr); }
+  .rules-grid { grid-template-columns: 1fr; }
+  .health-cards { grid-template-columns: repeat(2, 1fr); }
+  .events-timeline::before { left: 20px; }
+  .event-item, .event-item:nth-child(even) { flex-direction: row; gap: 24px; }
+  .event-dot { left: 20px; }
+  .event-spacer { display: none; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .section-padding { padding: 70px 20px; }
+  .nav { padding: 14px 20px; }
+  .nav.scrolled { padding: 10px 20px; }
+  .nav-links { display: none; }
+  .nav-mobile-btn { display: flex; }
+  .hero-content { padding: 0 20px; }
+  .hero-stats { padding: 18px 20px; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .hero-indicators { display: none; }
+  .hero-search-bar { flex-direction: column; border-radius: var(--radius); padding: 16px; }
+  .hero-search-btn { width: 100%; justify-content: center; }
+  .categories-section { padding: 40px 20px; }
+  .places-grid { grid-template-columns: 1fr; }
+  .knowledge-content { grid-template-columns: 1fr; }
+  .health-cards { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-paw">
+    <svg viewBox="0 0 512 512"><path d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5.3-86.2 32.6-96.8 70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7.9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v.4c0 41.4-33.5 75-75 75H131c-41.4 0-75-33.5-75-75v-.4c0-10.4 1.6-20.8 5.2-30.5zM324.2 92.9c-14.3 42.9.3 86.2 32.6 96.8s70.1-15.6 84.4-58.5-.3-86.2-32.6-96.8-70.1 15.6-84.4 58.5zm87.4 105.7c-24.5 14-29.1 51.7-10.2 84.1s54 47.3 78.5 33.3 29.1-51.7 10.2-84.1-54-47.3-78.5-33.3z"/></svg>
+  </div>
+  <div class="loader-text">PAWCITY HK</div>
+  <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+</div>
+
+<!-- FLOATING PAWS -->
+<div class="paw-particles" id="pawParticles"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🐾</div>
+    <div class="nav-logo-text"><span>PawCity</span> HK</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="places.html">寵物好去處</a></li>
+    <li><a href="knowledge.html">養寵資訊</a></li>
+    <li><a href="laws.html">法例須知</a></li>
+    <li><a href="health.html">健康護理</a></li>
+    <li><a href="events.html">活動資訊</a></li>
+    <li><a href="#newsletter" class="nav-cta">訂閱我們</a></li>
+  </ul>
+  <button class="nav-mobile-btn" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
+  <a href="/" onclick="toggleMobileMenu()">🏠 首頁</a>
+  <a href="places.html" onclick="toggleMobileMenu()">🏬 寵物好去處</a>
+  <a href="knowledge.html" onclick="toggleMobileMenu()">📚 養寵資訊</a>
+  <a href="laws.html" onclick="toggleMobileMenu()">⚖️ 法例須知</a>
+  <a href="health.html" onclick="toggleMobileMenu()">💊 健康護理</a>
+  <a href="events.html" onclick="toggleMobileMenu()">🎉 活動資訊</a>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1920&q=80" alt="Happy dog">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=1920&q=80" alt="Cute cat">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80" alt="Dogs playing">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1494256997604-768d1f608cac?w=1920&q=80" alt="Pet walking">
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      香港最受毛孩家長歡迎嘅資訊平台
+    </div>
+    <h1 class="hero-title">
+      養寵資訊·好去處<br>
+      <span class="accent handwritten">呢度齊晒</span>
+    </h1>
+    <p class="hero-desc">
+      我哋幫你搜羅全港最齊嘅寵物好去處地點、養寵貼士、法例須知同健康護理資訊，等你同毛孩喺香港生活得開心啲。
+    </p>
+    <div class="hero-actions">
+      <a href="places.html" class="btn-primary">
+        🐕 揾寵物好去處
+      </a>
+      <a href="knowledge.html" class="btn-secondary">
+        📖 睇多啲
+      </a>
+    </div>
+    <div class="hero-search">
+      <div class="hero-search-bar">
+        <input type="text" placeholder="搜尋寵物資訊、好去處、活動..." />
+        <button class="hero-search-btn" aria-label="搜尋">🔍 搜尋</button>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">🐶 狗公園</span>
+        <span class="hero-tag">😺 貓cafe</span>
+        <span class="hero-tag">🏥 獸醫</span>
+        <span class="hero-tag">🛁 寵物美容</span>
+        <span class="hero-tag">📋 領養資訊</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-number">500+</div>
+      <div class="hero-stat-label">寵物好去處地點</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">1200+</div>
+      <div class="hero-stat-label">資訊文章</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">50K+</div>
+      <div class="hero-stat-label">活躍用戶</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">300+</div>
+      <div class="hero-stat-label">合作商戶</div>
+    </div>
+  </div>
+
+  <div class="hero-indicators">
+    <div class="hero-indicator active" onclick="goToSlide(0)"></div>
+    <div class="hero-indicator" onclick="goToSlide(1)"></div>
+    <div class="hero-indicator" onclick="goToSlide(2)"></div>
+    <div class="hero-indicator" onclick="goToSlide(3)"></div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"></div>
+    <span>向下碌</span>
+  </div>
+</section>
+
+<!-- QUICK CATEGORIES -->
+<section class="categories-section reveal">
+  <div class="section-header">
+    <div class="section-tag">快速分類</div>
+    <h2 class="section-title">搜羅<span class="accent">寵物世界</span></h2>
+    <p class="section-subtitle">一站式香港寵物平台，幫你搵齊晒所有毛孩需要嘅資訊</p>
+  </div>
+  <div class="categories-scroll stagger-children" id="categoryScroll">
+    <a href="dogs.html" class="category-pill active">
+      <div class="category-pill-icon bg-coral">🐶</div>
+      <div class="category-pill-name">狗狗知識</div>
+      <div class="category-pill-count">286篇</div>
+    </a>
+    <a href="cats.html" class="category-pill">
+      <div class="category-pill-icon bg-gold">😺</div>
+      <div class="category-pill-name">貓貓知識</div>
+      <div class="category-pill-count">198篇</div>
+    </a>
+    <a href="small-pets.html" class="category-pill">
+      <div class="category-pill-icon bg-sage">🐰</div>
+      <div class="category-pill-name">小寵物</div>
+      <div class="category-pill-count">74篇</div>
+    </a>
+    <a href="health-tips.html" class="category-pill">
+      <div class="category-pill-icon bg-sky">🏥</div>
+      <div class="category-pill-name">疾病護理</div>
+      <div class="category-pill-count">156篇</div>
+    </a>
+    <a href="nutrition.html" class="category-pill">
+      <div class="category-pill-icon bg-lavender">🍖</div>
+      <div class="category-pill-name">寵物飲食</div>
+      <div class="category-pill-count">132篇</div>
+    </a>
+    <a href="training.html" class="category-pill">
+      <div class="category-pill-icon bg-mint">🎯</div>
+      <div class="category-pill-name">訓練技巧</div>
+      <div class="category-pill-count">98篇</div>
+    </a>
+    <a href="knowledge.html" class="category-pill">
+      <div class="category-pill-icon bg-peach">✈️</div>
+      <div class="category-pill-name">外遊資訊</div>
+      <div class="category-pill-count">45篇</div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURED ARTICLES -->
+<section class="featured-section section-padding reveal" id="featured">
+  <div class="section-header">
+    <div class="section-tag">精選推介</div>
+    <h2 class="section-title">最新<span class="accent">寵物情報</span></h2>
+    <p class="section-subtitle">緊貼香港寵物界最新消息、實用貼士同專家分享</p>
+  </div>
+  <div class="featured-grid">
+    <a href="article-puppy-home.html" class="featured-main">
+      <img class="featured-main-img" src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80" alt="幼犬" loading="lazy">
+      <div class="featured-main-overlay">
+        <div class="featured-main-tag">🔥 編輯推薦</div>
+        <h2>幼犬家居防護指南：5大危險物品你要知</h2>
+        <p>帶新幼犬返屋企係好興奮，但屋企有好多你未必注意到嘅危險。電線、清潔劑、家居植物⋯⋯等我哋話你知要留意啲咩。</p>
+        <div class="featured-main-meta">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="">
+          <span>PawCity編輯部</span>
+          <span>📅 2026年5月20日</span>
+          <span>📖 7分鐘</span>
+        </div>
+      </div>
+    </a>
+    <div class="featured-side">
+      <a href="article-cat-indoor-guide.html" class="featured-side-card">
+        <div class="featured-side-img-wrapper">
+          <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&q=80" alt="貓咪">
+        </div>
+        <div class="featured-side-body">
+          <div class="featured-side-tag">😺 貓奴必睇</div>
+          <h3>香港室內養貓指南：空間規劃與環境豐富化</h3>
+          <p>📅 2026年5月22日</p>
+        </div>
+      </a>
+      <a href="article-dog-heatstroke.html" class="featured-side-card">
+        <div class="featured-side-img-wrapper">
+          <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=300&q=80" alt="狗公園">
+        </div>
+        <div class="featured-side-body">
+          <div class="featured-side-tag">🐶 狗主必睇</div>
+          <h3>香港夏天遛狗必讀：中暑警示全攻略</h3>
+          <p>📅 2026年5月25日</p>
+        </div>
+      </a>
+      <a href="article-homemade-pet-food.html" class="featured-side-card">
+        <div class="featured-side-img-wrapper">
+          <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=300&q=80" alt="寵物營養">
+        </div>
+        <div class="featured-side-body">
+          <div class="featured-side-tag">🍖 寵物營養</div>
+          <h3>自製寵物鮮食：營養均衡嘅秘訣</h3>
+          <p>📅 2026年5月8日</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PET-FRIENDLY PLACES -->
+<section class="places-section section-padding reveal" id="places">
+  <div class="section-header">
+    <div class="section-tag">寵物好去處</div>
+    <h2 class="section-title">香港 <span class="accent">Pet-Friendly</span> 地點</h2>
+    <p class="section-subtitle">同毛孩一齊玩轉香港 — 餐廳、公園、商場、酒店，全部歡迎寵物</p>
+  </div>
+  <div class="places-tabs" id="placesTabs">
+    <button class="places-tab active">全部</button>
+    <button class="places-tab">🍽️ 餐廳</button>
+    <button class="places-tab">🌳 公園</button>
+    <button class="places-tab">🛍️ 商場</button>
+    <button class="places-tab">🏨 住宿</button>
+    <button class="places-tab">🏖️ 戶外</button>
+  </div>
+  <div class="places-grid stagger-children" id="placesGrid">
+    <a href="places.html" class="place-card" data-category="餐廳">
+      <div class="place-card-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&q=80" alt="Cafe">
+        <div class="place-card-badge">🍽️ 餐廳</div>
+        <div class="place-card-rating">⭐ 4.7</div>
+      </div>
+      <div class="place-card-body">
+        <h3>NOC Coffee Co.</h3>
+        <div class="place-card-location">📍 天后 · 九龍城 · 西貢</div>
+        <div class="place-card-tags">
+          <span>戶外座位</span>
+          <span>寵物水碗</span>
+        </div>
+        <div class="place-card-footer">
+          <span>💰 $40-$120</span>
+          <button class="place-card-save">♡</button>
+        </div>
+      </div>
+    </a>
+    <a href="places.html" class="place-card" data-category="公園">
+      <div class="place-card-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1591825729269-caeb344f6df2?w=600&q=80" alt="Dog Park">
+        <div class="place-card-badge">🌳 公園</div>
+        <div class="place-card-rating">⭐ 4.8</div>
+      </div>
+      <div class="place-card-body">
+        <h3>西貢寵物公園</h3>
+        <div class="place-card-location">📍 西貢市中心</div>
+        <div class="place-card-tags">
+          <span>草地超大</span>
+          <span>有飲水機</span>
+        </div>
+        <div class="place-card-footer">
+          <span>🆓 免費入場</span>
+          <button class="place-card-save">♡</button>
+        </div>
+      </div>
+    </a>
+    <a href="places.html" class="place-card" data-category="商場">
+      <div class="place-card-img">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1560032779-0a8809186efd?w=600&q=80" alt="Shopping Mall">
+        <div class="place-card-badge">🛍️ 商場</div>
+        <div class="place-card-rating">⭐ 4.3</div>
+      </div>
+      <div class="place-card-body">
+        <h3>海港城</h3>
+        <div class="place-card-location">📍 尖沙咀</div>
+        <div class="place-card-tags">
+          <span>寵物車通行</span>
+          <span>寵物友善樓層</span>
+        </div>
+        <div class="place-card-footer">
+          <span>🆓 免費入場</span>
+          <button class="place-card-save">♡</button>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:48px;">
+    <a href="places.html" class="btn-primary" style="display:inline-flex;">
+      🐾 睇晒全部好去處
+    </a>
+  </div>
+</section>
+
+<!-- KNOWLEDGE / GUIDE -->
+<section class="knowledge-section section-padding reveal" id="knowledge">
+  <div class="section-header">
+    <div class="section-tag">養寵資訊</div>
+    <h2 class="section-title">全方位 <span class="accent">養寵攻略</span></h2>
+    <p class="section-subtitle">從新手入門到進階技巧，所有養寵資訊一應俱全</p>
+  </div>
+  <div class="knowledge-layout">
+    <div class="knowledge-sidebar">
+      <div class="knowledge-sidebar-card">
+        <h4>📂 分類瀏覽</h4>
+        <a href="dogs.html" class="knowledge-topic active" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon coral">🐶</div>
+          <div class="knowledge-topic-text">
+            <h5>狗狗知識</h5>
+            <span>156篇</span>
+          </div>
+        </a>
+        <a href="cats.html" class="knowledge-topic" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon gold">😺</div>
+          <div class="knowledge-topic-text">
+            <h5>貓貓知識</h5>
+            <span>124篇</span>
+          </div>
+        </a>
+        <a href="small-pets.html" class="knowledge-topic" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon sage">🐰</div>
+          <div class="knowledge-topic-text">
+            <h5>小寵物知識</h5>
+            <span>67篇</span>
+          </div>
+        </a>
+        <a href="nutrition.html" class="knowledge-topic" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon sky">🍖</div>
+          <div class="knowledge-topic-text">
+            <h5>寵物營養</h5>
+            <span>89篇</span>
+          </div>
+        </a>
+        <a href="training.html" class="knowledge-topic" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon lavender">🎯</div>
+          <div class="knowledge-topic-text">
+            <h5>行為訓練</h5>
+            <span>72篇</span>
+          </div>
+        </a>
+        <a href="health-tips.html" class="knowledge-topic" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon mint">💊</div>
+          <div class="knowledge-topic-text">
+            <h5>疾病護理</h5>
+            <span>95篇</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="knowledge-content">
+      <a href="article-puppy-home.html" class="knowledge-card">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=600&q=80" alt="小狗">
+          <div class="knowledge-card-category">🐶 狗狗知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>幼犬家居防護指南：5大危險物品你要知</h3>
+          <p>帶新幼犬返屋企係一件令人興奮嘅事，不過要順利過渡，一定要做足準備...</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2026年5月20日</span>
+            <span class="read-time">⏱️ 7分鐘</span>
+          </div>
+        </div>
+      </a>
+      <a href="article-cat-body-language.html" class="knowledge-card">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1574231164645-d6f0e8553590?w=600&q=80" alt="貓咪">
+          <div class="knowledge-card-category">😺 貓貓知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓咪嘶嘶叫？教你讀懂貓貓心情</h3>
+          <p>貓貓尾巴點擺、耳仔方向、瞳孔大細⋯⋯你知唔知佢哋想講咩？</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2026年5月18日</span>
+            <span class="read-time">⏱️ 7分鐘</span>
+          </div>
+        </div>
+      </a>
+      <a href="article-homemade-pet-food.html" class="knowledge-card">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1602491453631-e2a5ad90a131?w=600&q=80" alt="寵物營養">
+          <div class="knowledge-card-category">🍖 寵物營養</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>自製寵物鮮食：營養均衡嘅秘訣</h3>
+          <p>想親手為毛孩準備健康餐點？等營養師教你點樣確保每一餐都營養均衡...</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2026年5月8日</span>
+            <span class="read-time">⏱️ 10分鐘</span>
+          </div>
+        </div>
+      </a>
+      <a href="article-dog-training.html" class="knowledge-card">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1591769225440-811ad7d6eab3?w=600&q=80" alt="訓練">
+          <div class="knowledge-card-category">🎯 行為訓練</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>狗狗基礎服從訓練：由零開始</h3>
+          <p>等等、坐低、躺下、過嚟——教你用正向獎勵法訓練出聽教聽話嘅毛孩...</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2026年4月28日</span>
+            <span class="read-time">⏱️ 12分鐘</span>
+          </div>
+        </div>
+      </a>
+      <div style="grid-column:1/-1;text-align:center;margin-top:12px;">
+        <a href="knowledge.html" class="btn-primary" style="display:inline-flex;">
+          📚 睇晒全部文章
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HK PET RULES -->
+<section class="rules-section section-padding reveal" id="rules">
+  <div class="section-header">
+    <div class="section-tag">法例須知</div>
+    <h2 class="section-title">香港 <span class="accent">寵物法例</span> 你要知</h2>
+    <p class="section-subtitle">作為負責任嘅寵物主人，了解香港嘅寵物法例係應有責任</p>
+  </div>
+  <div class="rules-grid stagger-children">
+    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+      <div class="rule-card-header">
+        <div class="rule-card-icon red">📜</div>
+        <h3>狗牌牌照規定</h3>
+      </div>
+      <p>根據《狂犬病條例》，所有五個月大或以上嘅狗隻都必須領牌同植入晶片。違者最高可被罰款 $10,000。</p>
+      <div class="rule-card-tags">
+        <span>狗牌</span>
+        <span>晶片</span>
+        <span>強制</span>
+      </div>
+    </a>
+    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+      <div class="rule-card-header">
+        <div class="rule-card-icon green">🏠</div>
+        <h3>公屋養寵規定</h3>
+      </div>
+      <p>房委會規定，公屋住戶唔養得狗。不過2019年起放寬咗，容許養已絕育嘅小型貓貓。</p>
+      <div class="rule-card-tags">
+        <span>公屋</span>
+        <span>居屋</span>
+        <span>貓貓許可</span>
+      </div>
+    </a>
+    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+      <div class="rule-card-header">
+        <div class="rule-card-icon gold">🚇</div>
+        <h3>公共交通工具規則</h3>
+      </div>
+      <p>港鐵准帶寵物，但一定要放入專用寵物袋或籠（尺寸限制 64x41x23cm）。導盲犬唔受限制。</p>
+      <div class="rule-card-tags">
+        <span>港鐵</span>
+        <span>寵物袋</span>
+        <span>尺寸限制</span>
+      </div>
+    </a>
+    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+      <div class="rule-card-header">
+        <div class="rule-card-icon sky">🌳</div>
+        <h3>公眾地方遛狗規則</h3>
+      </div>
+      <p>香港大部分公園准遛狗，但一定要用狗帶。康文署部分公園設有寵物禁區，違規可被定額罰款 $1,500。</p>
+      <div class="rule-card-tags">
+        <span>狗帶</span>
+        <span>寵物禁區</span>
+        <span>罰款</span>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:48px;">
+    <a href="laws.html" class="btn-primary" style="display:inline-flex;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);">
+      ⚖️ 睇晒全部法例
+    </a>
+  </div>
+</section>
+
+<!-- PET HEALTH GUIDE -->
+<section class="health-section section-padding reveal" id="health">
+  <div class="section-header">
+    <div class="section-tag">健康護理</div>
+    <h2 class="section-title">毛孩 <span class="accent">健康手冊</span></h2>
+    <p class="section-subtitle">由專業獸醫團隊主理，為你提供最可靠嘅寵物健康資訊</p>
+  </div>
+  <div class="health-cards stagger-children">
+    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+      <div class="health-card-icon coral">💉</div>
+      <h3>疫苗接種</h3>
+      <p>了解貓狗每年需要打嘅疫苗，同埋最佳接種時間表</p>
+      <span class="health-card-link">了解更多 →</span>
+    </a>
+    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+      <div class="health-card-icon gold">🪥</div>
+      <h3>日常護理</h3>
+      <p>刷牙、梳毛、剪甲⋯⋯每日護理程序完整教學</p>
+      <span class="health-card-link">了解更多 →</span>
+    </a>
+    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+      <div class="health-card-icon sage">🥗</div>
+      <h3>體重管理</h3>
+      <p>寵物肥胖問題愈嚟愈普遍，教你點幫毛孩保持健康體態</p>
+      <span class="health-card-link">了解更多 →</span>
+    </a>
+    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+      <div class="health-card-icon sky">🏥</div>
+      <h3>常見疾病</h3>
+      <p>皮膚病、腸胃炎、關節問題⋯⋯教你分辨常見寵物病症</p>
+      <span class="health-card-link">了解更多 →</span>
+    </a>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events-section section-padding reveal" id="events">
+  <div class="section-header">
+    <div class="section-tag">活動資訊</div>
+    <h2 class="section-title">毛孩 <span class="accent">活動月曆</span></h2>
+    <p class="section-subtitle">緊貼香港寵物界最新活動、展覽、聚會同工作坊</p>
+  </div>
+  <div class="events-timeline">
+    <div class="event-item">
+      <div class="event-dot"></div>
+      <div class="event-spacer"></div>
+      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+        <div class="event-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Pet Expo">
+          <div class="event-date-badge">
+            <span class="day">15</span>
+            <span class="month">FEB</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h3>香港寵物節2026</h3>
+          <p>全港最大型寵物展，超過300個攤位，一站式寵物用品、食品、服務展銷。</p>
+          <div class="event-meta">
+            <span>📍 香港會議展覽中心</span>
+            <span>⏰ 10:00 - 20:00</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="event-item">
+      <div class="event-dot"></div>
+      <div class="event-spacer"></div>
+      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+        <div class="event-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80" alt="Dog Walk">
+          <div class="event-date-badge">
+            <span class="day">14</span>
+            <span class="month">JUN</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h3>西貢狗狗沙灘日</h3>
+          <p>一齊帶毛孩去西貢沙灘玩水！活動包括狗狗游水比賽、沙灘障礙賽等。</p>
+          <div class="event-meta">
+            <span>📍 西貢公眾碼頭</span>
+            <span>⏰ 09:00 - 17:00</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="event-item">
+      <div class="event-dot"></div>
+      <div class="event-spacer"></div>
+      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+        <div class="event-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&q=80" alt="Cat Workshop">
+          <div class="event-date-badge">
+            <span class="day">19</span>
+            <span class="month">JUL</span>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h3>貓貓行為工作坊</h3>
+          <p>由資深貓行為專家主講，教你睇明貓貓行為，改善人貓關係。</p>
+          <div class="event-meta">
+            <span>📍 灣仔動物教育中心</span>
+            <span>⏰ 14:00 - 17:00</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px;">
+    <a href="events.html" class="btn-primary" style="display:inline-flex;">
+      🎉 睇晒全部活動
+    </a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" id="newsletter">
+  <div class="newsletter-inner reveal">
+    <h2>訂閱 PawCity HK 寵物通訊</h2>
+    <p>每星期接收最新寵物資訊、優惠活動同專家貼士，唔好錯過任何同毛孩有關嘅消息！</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('多謝訂閱！🐾');">
+      <input type="email" name="email" placeholder="輸入你嘅電郵地址" required />
+      <button type="submit">即時訂閱 →</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="color:white;">
+        <div class="nav-logo-icon">🐾</div>
+        <div class="nav-logo-text"><span>PawCity</span> HK</div>
+      </a>
+      <p>香港最受歡迎嘅寵物資訊平台，專為毛孩家長提供最全面、最可靠嘅寵物資訊。由飲食、健康到玩樂，我哋乜都有。</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" aria-label="Facebook">📘</a>
+        <a href="#" class="footer-social" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social" aria-label="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>探索</h4>
+      <ul>
+        <li><a href="places.html">寵物好去處地點</a></li>
+        <li><a href="knowledge.html">養寵資訊</a></li>
+        <li><a href="laws.html">法例須知</a></li>
+        <li><a href="health.html">健康護理</a></li>
+        <li><a href="events.html">活動資訊</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>資源</h4>
+      <ul>
+        <li><a href="#">獸醫網絡</a></li>
+        <li><a href="#">寵物保險</a></li>
+        <li><a href="#">領養資訊</a></li>
+        <li><a href="#">寵物移民</a></li>
+        <li><a href="#">緊急支援</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>關於</h4>
+      <ul>
+        <li><a href="#">關於我哋</a></li>
+        <li><a href="#">合作查詢</a></li>
+        <li><a href="#">廣告查詢</a></li>
+        <li><a href="#">私隱政策</a></li>
+        <li><a href="#">使用條款</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 PawCity HK · 用 🐾 為香港毛孩而造</p>
+    <div class="footer-bottom-links">
+      <a href="#">私隱政策</a>
+      <a href="#">使用條款</a>
+      <a href="#">Cookie設定</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- JAVASCRIPT -->
+<script>
+// Loader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1000);
+});
+
+// Floating paw particles
+(function createPawParticles() {
+  const container = document.getElementById('pawParticles');
+  const paw = '🐾';
+  for (let i = 0; i < 15; i++) {
+    const el = document.createElement('div');
+    el.className = 'paw-particle';
+    el.textContent = paw;
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (14 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (15 + Math.random() * 25) + 's';
+    el.style.animationDelay = (Math.random() * 20) + 's';
+    container.appendChild(el);
+  }
+})();
+
+// Nav scroll
+  window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  const bt = document.getElementById('backToTop');
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 80);
+  bt.classList.toggle('visible', y > 500);
+});
+
+// Hero slides
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const indicators = document.querySelectorAll('.hero-indicator');
+let slideInterval;
+
+function goToSlide(index) {
+  slides.forEach(s => s.classList.remove('active'));
+  indicators.forEach(i => i.classList.remove('active'));
+  slides[index].classList.add('active');
+  indicators[index].classList.add('active');
+  currentSlide = index;
+  resetSlideInterval();
+}
+
+function nextSlide() {
+  goToSlide((currentSlide + 1) % slides.length);
+}
+
+function resetSlideInterval() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 6000);
+}
+resetSlideInterval();
+
+// Mobile menu
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .stagger-children').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// Categories scroll snap (now links to knowledge.html)
+
+// Places tabs
+document.querySelectorAll('.places-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.places-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Knowledge topics (now link to knowledge.html)
+
+// Save buttons
+document.querySelectorAll('.place-card-save').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.textContent = this.textContent === '♡' ? '❤️' : '♡';
+  });
+});
+
+console.log('🐾 PawCity HK loaded! Welcome!');
+</script>
+</body>
+</html>

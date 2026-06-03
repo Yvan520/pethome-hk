@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>養寵資訊 — PawCity HK 全方位養寵攻略</title>
+<meta name="description" content="PawCity HK 養寵資訊 — 由新手到進階，涵蓋狗狗知識、貓貓知識、寵物營養、行為訓練、疾病護理等全方位香港養寵攻略。">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --coral: #FF6B5A;
+  --coral-light: #FF8A7A;
+  --peach: #FFB59E;
+  --cream: #FFF8F3;
+  --warm-white: #FFFCFA;
+  --charcoal: #2D2A26;
+  --dark: #1A1714;
+  --gold: #D4A853;
+  --gold-light: #F0D68A;
+  --sage: #A8B5A0;
+  --sage-light: #E2F0DC;
+  --sky: #87CEEB;
+  --sky-light: #D6F0FF;
+  --lavender: #C3B1E1;
+  --lavender-light: #E8DEFF;
+  --mint: #7EC8A0;
+  --mint-light: #D6F5E3;
+  --glass: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-soft: 0 8px 32px rgba(0,0,0,0.06);
+  --shadow-medium: 0 16px 48px rgba(0,0,0,0.10);
+  --shadow-heavy: 0 24px 64px rgba(0,0,0,0.14);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 28px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--coral), var(--gold));
+  border-radius: 4px;
+}
+
+/* ===== LOADER ===== */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--dark);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.loader.hidden { opacity: 0; visibility: hidden; }
+.loader-paw {
+  width: 60px; height: 60px;
+  animation: pawBounce 1s ease-in-out infinite;
+}
+.loader-paw svg { width: 100%; height: 100%; fill: var(--coral); }
+.loader-text {
+  color: rgba(255,255,255,0.5); font-size: 13px;
+  margin-top: 20px; letter-spacing: 4px;
+}
+.loader-progress {
+  width: 120px; height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px; margin-top: 16px; overflow: hidden;
+}
+.loader-progress-bar {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--coral), var(--gold));
+  border-radius: 3px;
+  animation: loadBar 2s ease forwards;
+}
+@keyframes loadBar { to { width: 100%; } }
+@keyframes pawBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.1); }
+}
+
+/* ===== FLOATING PAWS ===== */
+.paw-particles {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; overflow: hidden;
+}
+.paw-particle {
+  position: absolute; opacity: 0.035;
+  font-size: 20px;
+  animation: floatPaw linear infinite;
+}
+@keyframes floatPaw {
+  0% { transform: translateY(110vh) rotate(0deg); }
+  100% { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000; padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav.scrolled {
+  padding: 12px 48px;
+  background: rgba(255, 252, 250, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 40px rgba(0,0,0,0.05);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: white;
+  transition: color 0.4s;
+}
+.nav.scrolled .nav-logo { color: var(--charcoal); }
+.nav-logo-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 15px rgba(255, 107, 90, 0.4);
+  transition: transform 0.3s;
+}
+.nav-logo-icon:hover { transform: rotate(-10deg) scale(1.1); }
+.nav-logo-text { font-weight: 900; font-size: 22px; letter-spacing: -0.5px; }
+.nav-logo-text span {
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: rgba(255,255,255,0.8);
+  font-size: 14px; font-weight: 500;
+  position: relative; transition: color 0.3s; padding: 4px 0;
+}
+.nav.scrolled .nav-links a { color: var(--charcoal); }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--coral), var(--gold));
+  border-radius: 2px; transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--coral); }
+.nav-links a.active { color: var(--coral); }
+.nav-links a.active::after { width: 100%; }
+.nav.scrolled .nav-links a.active { color: var(--coral); }
+
+.nav-cta {
+  padding: 10px 24px !important;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C) !important;
+  color: white !important; border-radius: 50px;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 20px rgba(255, 107, 90, 0.35);
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 30px rgba(255, 107, 90, 0.5) !important;
+}
+
+.nav-mobile-btn {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 5px;
+}
+.nav-mobile-btn span {
+  width: 24px; height: 2px; background: white;
+  border-radius: 2px; transition: all 0.3s;
+}
+.nav.scrolled .nav-mobile-btn span { background: var(--charcoal); }
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+  position: relative; min-height: 50vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1A1714 0%, #2D2A26 100%);
+}
+.page-header-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.page-header-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.35;
+}
+.page-header-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(135deg, rgba(26,23,20,0.85) 0%, rgba(26,23,20,0.4) 100%);
+}
+.page-header-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 140px 48px 80px;
+  max-width: 800px;
+}
+.breadcrumb {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+.breadcrumb a {
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  transition: color 0.3s;
+}
+.breadcrumb a:hover { color: var(--coral-light); }
+.breadcrumb span { color: rgba(255,255,255,0.8); }
+.page-header h1 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900; color: white;
+  margin-bottom: 16px; line-height: 1.2;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 0.7s;
+}
+.page-header h1 .accent {
+  background: linear-gradient(135deg, var(--coral-light), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.page-header p {
+  font-size: 17px; color: rgba(255,255,255,0.65);
+  line-height: 1.85; max-width: 560px; margin: 0 auto;
+  font-weight: 300;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 0.9s;
+}
+.page-header-stats {
+  display: flex; justify-content: center; gap: 48px;
+  margin-top: 36px;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards 1.1s;
+}
+.page-header-stat { text-align: center; color: white; }
+.page-header-stat-number {
+  font-size: 28px; font-weight: 900;
+  background: linear-gradient(135deg, var(--coral-light), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.page-header-stat-label {
+  font-size: 12px; color: rgba(255,255,255,0.55);
+  margin-top: 4px; letter-spacing: 1px;
+}
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ===== SECTION COMMON ===== */
+section { position: relative; z-index: 2; }
+.section-padding { padding: 100px 48px; }
+
+/* ===== KNOWLEDGE LAYOUT ===== */
+.knowledge-section { background: var(--warm-white); }
+.knowledge-layout {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 40px; max-width: 1200px; margin: 0 auto;
+}
+.knowledge-sidebar {
+  position: sticky; top: 100px; align-self: start;
+}
+.knowledge-sidebar-card {
+  background: white; border-radius: var(--radius);
+  padding: 28px; border: 1px solid rgba(0,0,0,0.03);
+}
+.knowledge-sidebar-card h4 {
+  font-size: 16px; font-weight: 700; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.knowledge-topic {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: all 0.3s;
+  margin-bottom: 4px;
+}
+.knowledge-topic:hover { background: #FFF0EB; }
+.knowledge-topic.active {
+  background: linear-gradient(135deg, #FFF0EB, #FFE8E0);
+}
+.knowledge-topic-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.knowledge-topic-icon.coral { background: #FFE5E0; }
+.knowledge-topic-icon.gold { background: #FFF3D6; }
+.knowledge-topic-icon.sage { background: #E2F0DC; }
+.knowledge-topic-icon.sky { background: #D6F0FF; }
+.knowledge-topic-icon.lavender { background: #E8DEFF; }
+.knowledge-topic-icon.mint { background: #D6F5E3; }
+
+.knowledge-topic-text h5 {
+  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+}
+.knowledge-topic-text span {
+  font-size: 11px; color: #aaa;
+}
+
+.knowledge-content {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.knowledge-card {
+  background: white; border-radius: var(--radius);
+  overflow: hidden; transition: all 0.4s;
+  cursor: pointer; border: 1px solid rgba(0,0,0,0.03);
+}
+.knowledge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+.knowledge-card-img {
+  height: 180px; overflow: hidden; position: relative;
+}
+.knowledge-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.knowledge-card:hover .knowledge-card-img img { transform: scale(1.06); }
+.knowledge-card-category {
+  position: absolute; bottom: 12px; left: 12px;
+  padding: 5px 14px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  font-size: 11px; font-weight: 600;
+  color: var(--coral);
+}
+.knowledge-card-body { padding: 20px; }
+.knowledge-card-body h3 {
+  font-size: 16px; font-weight: 700;
+  line-height: 1.45; margin-bottom: 10px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.knowledge-card-body p {
+  font-size: 13px; color: #8A8580;
+  line-height: 1.7; margin-bottom: 16px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.knowledge-card-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: #bbb;
+}
+.knowledge-card-meta .read-time {
+  display: flex; align-items: center; gap: 4px;
+}
+
+.result-count {
+  text-align: center; font-size: 14px; color: #8A8580;
+  margin-bottom: 32px;
+}
+
+/* ===== NEWSLETTER ===== */
+.newsletter-section {
+  padding: 100px 48px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C, var(--gold));
+  position: relative; overflow: hidden;
+}
+.newsletter-section::before {
+  content: '🐾'; position: absolute;
+  font-size: 300px; opacity: 0.08;
+  top: -60px; right: -40px;
+}
+.newsletter-inner {
+  max-width: 640px; margin: 0 auto;
+  text-align: center; position: relative; z-index: 1;
+}
+.newsletter-inner h2 {
+  font-size: 38px; font-weight: 900;
+  color: white; margin-bottom: 16px;
+}
+.newsletter-inner p {
+  font-size: 16px; color: rgba(255,255,255,0.85);
+  margin-bottom: 36px; line-height: 1.7;
+}
+.newsletter-form {
+  display: flex; gap: 12px;
+  max-width: 480px; margin: 0 auto;
+}
+.newsletter-form input {
+  flex: 1; padding: 16px 24px;
+  border: none; border-radius: 50px;
+  font-size: 15px; font-family: inherit;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  color: white; outline: none;
+}
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.6); }
+.newsletter-form button {
+  padding: 16px 32px;
+  background: white; color: var(--coral);
+  border: none; border-radius: 50px;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.3s;
+  font-family: inherit; white-space: nowrap;
+}
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--dark); color: white;
+  padding: 80px 48px 40px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; max-width: 1200px; margin: 0 auto 60px;
+}
+.footer-brand p {
+  font-size: 14px; color: rgba(255,255,255,0.45);
+  line-height: 1.8; margin: 16px 0 24px; max-width: 300px;
+}
+.footer-socials { display: flex; gap: 12px; }
+.footer-social {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  font-size: 16px; transition: all 0.3s;
+}
+.footer-social:hover {
+  background: var(--coral); border-color: var(--coral);
+  color: white; transform: translateY(-3px);
+}
+.footer-col h4 {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 24px; color: rgba(255,255,255,0.8);
+}
+.footer-col ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.footer-col a {
+  color: rgba(255,255,255,0.4); text-decoration: none;
+  font-size: 14px; transition: all 0.3s;
+}
+.footer-col a:hover { color: var(--coral-light); padding-left: 6px; }
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 16px;
+}
+.footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.25); }
+.footer-bottom-links { display: flex; gap: 24px; }
+.footer-bottom-links a {
+  font-size: 13px; color: rgba(255,255,255,0.25);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-bottom-links a:hover { color: var(--coral); }
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+  position: fixed; bottom: 32px; right: 32px;
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--coral), #FF8A5C);
+  color: white; border: none; border-radius: 50%;
+  font-size: 20px; cursor: pointer; z-index: 999;
+  opacity: 0; visibility: hidden; transform: translateY(20px);
+  transition: all 0.4s;
+  box-shadow: 0 8px 30px rgba(255, 107, 90, 0.35);
+  display: flex; align-items: center; justify-content: center;
+}
+.back-to-top.visible {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255, 107, 90, 0.5);
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.stagger-children > * {
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stagger-children.visible > *:nth-child(1) { transition-delay: 0.03s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 0.06s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 0.09s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(5) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(6) { transition-delay: 0.18s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(7) { transition-delay: 0.21s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(8) { transition-delay: 0.24s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(9) { transition-delay: 0.27s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(10) { transition-delay: 0.30s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(11) { transition-delay: 0.33s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(12) { transition-delay: 0.36s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(13) { transition-delay: 0.39s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(14) { transition-delay: 0.42s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(15) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(16) { transition-delay: 0.48s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(17) { transition-delay: 0.51s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(18) { transition-delay: 0.54s; opacity: 1; transform: translateY(0); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; inset: 0;
+  background: rgba(26, 23, 20, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 28px;
+  opacity: 0; visibility: hidden; transition: all 0.4s;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu a {
+  color: white; text-decoration: none;
+  font-size: 26px; font-weight: 700;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--coral); }
+.mobile-menu-close {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none;
+  color: white; font-size: 32px; cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .knowledge-layout { grid-template-columns: 1fr; }
+  .knowledge-sidebar { position: static; display: flex; flex-wrap: wrap; gap: 8px; }
+  .knowledge-sidebar-card { flex: 1; min-width: 250px; }
+  .knowledge-content { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .section-padding { padding: 70px 20px; }
+  .nav { padding: 14px 20px; }
+  .nav.scrolled { padding: 10px 20px; }
+  .nav-links { display: none; }
+  .nav-mobile-btn { display: flex; }
+  .page-header-content { padding: 120px 20px 60px; }
+  .page-header-stats { gap: 24px; flex-wrap: wrap; }
+  .knowledge-content { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .newsletter-section { padding: 70px 20px; }
+  .knowledge-sidebar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .knowledge-sidebar-card { padding: 16px; }
+  .knowledge-topic { padding: 10px 12px; }
+  .knowledge-topic-text span { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-paw">
+    <svg viewBox="0 0 512 512"><path d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5.3-86.2 32.6-96.8 70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7.9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v.4c0 41.4-33.5 75-75 75H131c-41.4 0-75-33.5-75-75v-.4c0-10.4 1.6-20.8 5.2-30.5zM324.2 92.9c-14.3 42.9.3 86.2 32.6 96.8s70.1-15.6 84.4-58.5-.3-86.2-32.6-96.8-70.1 15.6-84.4 58.5zm87.4 105.7c-24.5 14-29.1 51.7-10.2 84.1s54 47.3 78.5 33.3 29.1-51.7 10.2-84.1-54-47.3-78.5-33.3z"/></svg>
+  </div>
+  <div class="loader-text">PAWCITY HK</div>
+  <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+</div>
+
+<!-- FLOATING PAWS -->
+<div class="paw-particles" id="pawParticles"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">🐾</div>
+    <div class="nav-logo-text"><span>PawCity</span> HK</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">寵物好去處</a></li>
+    <li><a href="knowledge.html" class="active">養寵資訊</a></li>
+    <li><a href="laws.html">法例須知</a></li>
+    <li><a href="health.html">健康護理</a></li>
+    <li><a href="events.html">活動資訊</a></li>
+    <li><a href="#" class="nav-cta">訂閱我們</a></li>
+  </ul>
+  <button class="nav-mobile-btn" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
+  <a href="/" onclick="toggleMobileMenu()">🏬 寵物好去處</a>
+  <a href="knowledge.html" onclick="toggleMobileMenu()">📚 養寵資訊</a>
+  <a href="laws.html" onclick="toggleMobileMenu()">⚖️ 法例須知</a>
+  <a href="health.html" onclick="toggleMobileMenu()">💊 健康護理</a>
+  <a href="events.html" onclick="toggleMobileMenu()">🎉 活動資訊</a>
+</div>
+
+<main>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-bg">
+    <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=1920&q=80" alt="養寵資訊" loading="lazy">
+  </div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <div class="breadcrumb">
+      <a href="/">首頁</a>
+      <span>›</span>
+      <span>養寵資訊</span>
+    </div>
+    <h1>養寵<span class="accent">資訊</span></h1>
+    <p>全方位養寵攻略，由新手到進階 — 狗狗、貓貓、小寵物，所有養寵知識一網打盡</p>
+    <div class="page-header-stats">
+      <div class="page-header-stat">
+        <div class="page-header-stat-number">300+</div>
+        <div class="page-header-stat-label">養寵文章</div>
+      </div>
+      <div class="page-header-stat">
+        <div class="page-header-stat-number">6</div>
+        <div class="page-header-stat-label">知識分類</div>
+      </div>
+      <div class="page-header-stat">
+        <div class="page-header-stat-number">50K+</div>
+        <div class="page-header-stat-label">讀者信賴</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE SECTION -->
+<section class="knowledge-section section-padding" id="knowledge">
+  <div class="result-count" id="resultCount">顯示所有 17 篇文章</div>
+  <div class="knowledge-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="knowledge-sidebar">
+      <div class="knowledge-sidebar-card">
+        <h4>📂 文章分類</h4>
+        <div class="knowledge-topic active" data-category="all">
+          <div class="knowledge-topic-icon coral">📋</div>
+          <div class="knowledge-topic-text">
+            <h5>全部文章</h5>
+            <span>17篇</span>
+          </div>
+        </div>
+        <a href="dogs.html" class="knowledge-topic" data-category="dog" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon coral">🐶</div>
+          <div class="knowledge-topic-text">
+            <h5>狗狗知識</h5>
+            <span>3篇</span>
+          </div>
+        </a>
+        <a href="cats.html" class="knowledge-topic" data-category="cat" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon gold">😺</div>
+          <div class="knowledge-topic-text">
+            <h5>貓貓知識</h5>
+            <span>3篇</span>
+          </div>
+        </a>
+        <a href="small-pets.html" class="knowledge-topic" data-category="small-pet" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon sage">🐰</div>
+          <div class="knowledge-topic-text">
+            <h5>小寵物</h5>
+            <span>2篇</span>
+          </div>
+        </a>
+        <a href="nutrition.html" class="knowledge-topic" data-category="nutrition" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon sky">🍖</div>
+          <div class="knowledge-topic-text">
+            <h5>寵物營養</h5>
+            <span>3篇</span>
+          </div>
+        </a>
+        <a href="training.html" class="knowledge-topic" data-category="training" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon lavender">🎯</div>
+          <div class="knowledge-topic-text">
+            <h5>行為訓練</h5>
+            <span>3篇</span>
+          </div>
+        </a>
+        <a href="health-tips.html" class="knowledge-topic" data-category="health" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.3s;margin-bottom:4px;">
+          <div class="knowledge-topic-icon mint">💊</div>
+          <div class="knowledge-topic-text">
+            <h5>疾病護理</h5>
+            <span>3篇</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ARTICLES GRID -->
+    <div class="knowledge-content stagger-children" id="articlesGrid">
+
+      <!-- 🐶 狗狗知識 -->
+      <a href="article-puppy-home.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="dog">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&q=80" alt="幼犬家居防護">
+          <div class="knowledge-card-category">🐶 狗狗知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>幼犬家居防護指南：5大危險物品你要知</h3>
+          <p>迎接幼犬返屋企之前，你知唔知屋企有幾多潛在危險？電線、清潔劑、小物件⋯⋯等我哋同你逐個盤點，打造一個安全嘅寵物家居環境。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年3月15日</span>
+            <span class="read-time">⏱ 6分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-dog-heatstroke.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="dog">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80" alt="夏天遛狗">
+          <div class="knowledge-card-category">🐶 狗狗知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>香港夏天遛狗必讀：中暑警示全攻略</h3>
+          <p>香港夏天熱到爆，地板溫度隨時超過50°C！狗狗中暑可以致命。本文教你分辨中暑症狀、緊急處理步驟同最佳遛狗時間，等毛孩平安過夏。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年6月10日</span>
+            <span class="read-time">⏱ 8分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-dog-separation-anxiety.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="dog">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&q=80" alt="分離焦慮">
+          <div class="knowledge-card-category">🐶 狗狗知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>狗狗分離焦慮症：症狀、原因與改善方法</h3>
+          <p>每次出門毛孩就狂吠、破壞傢俬？可能係分離焦慮作怪！我哋整合咗獸醫同訓練師嘅建議，由診斷到改善逐步教你應對。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年4月22日</span>
+            <span class="read-time">⏱ 10分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- 😺 貓貓知識 -->
+      <a href="article-cat-indoor-guide.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="cat">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&q=80" alt="室內養貓">
+          <div class="knowledge-card-category">😺 貓貓知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>香港室內養貓指南：空間規劃與環境豐富化</h3>
+          <p>香港居住環境細，點樣先可以令貓貓喺室內都過得開心？從垂直空間利用、藏身處設置到玩具輪換，打造貓貓天堂嘅秘訣全公開。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年2月28日</span>
+            <span class="read-time">⏱ 7分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-cat-body-language.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="cat">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1492370284958-c20b15c692d2?w=600&q=80" alt="貓咪心情">
+          <div class="knowledge-card-category">😺 貓貓知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓咪嘶嘶叫？教你讀懂貓貓心情</h3>
+          <p>貓貓嘅身體語言比你想像中豐富！尾巴點樣擺、耳仔點樣轉、瞳孔大細，全部都有意思。學識睇貓話，同主子溝通零障礙。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年5月8日</span>
+            <span class="read-time">⏱ 5分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-cat-litter.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="cat">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1568152950566-c1bf43f4ab28?w=600&q=80" alt="貓砂選擇">
+          <div class="knowledge-card-category">😺 貓貓知識</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓砂選擇終極懶人包：礦砂、豆腐砂、木砂評比</h3>
+          <p>市面上咁多種貓砂，到底邊款最適合你嘅貓貓？我哋實測對比礦砂、豆腐砂、木砂、水晶砂、膨潤土砂嘅除臭力、粉塵量同價錢，幫你揀最抵嗰款。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年3月20日</span>
+            <span class="read-time">⏱ 9分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- 🐰 小寵物 -->
+      <a href="article-rabbit-guide.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="small-pet">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1535241749838-299277b6305f?w=600&q=80" alt="兔仔飼養">
+          <div class="knowledge-card-category">🐰 小寵物</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>兔仔新手入門指南：飼養基本知識</h3>
+          <p>養兔仔前要準備啲咩？兔仔唔係淨係食紅蘿蔔咁簡單！籠舍要求、飲食比例、日常護理同常見疾病，呢篇入門文幫你由零開始變兔奴。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年1月12日</span>
+            <span class="read-time">⏱ 8分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-guinea-pig-diet.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="small-pet">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1553284965-f31a20253443?w=600&q=80" alt="天竺鼠飲食">
+          <div class="knowledge-card-category">🐰 小寵物</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>天竺鼠飲食指南：營養需求與餵食建議</h3>
+          <p>天竺鼠係草食性動物，但唔係淨係食草咁簡單！維他命C對佢哋尤其重要。本文詳細介紹天竺鼠嘅均衡飲食結構、推薦糧草品牌同有害食物清單。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年2月5日</span>
+            <span class="read-time">⏱ 6分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- 🍖 寵物營養 -->
+      <a href="article-homemade-pet-food.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="nutrition">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80" alt="寵物鮮食">
+          <div class="knowledge-card-category">🍖 寵物營養</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>自製寵物鮮食：營養均衡嘅秘訣</h3>
+          <p>愈來愈多主人選擇自製鮮食俾毛孩，但係點樣先可以確保營養均衡？我哋請教咗寵物營養師，分享鮮食比例公式、食材選擇同簡易食譜。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年4月15日</span>
+            <span class="read-time">⏱ 10分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-dog-fruits.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="nutrition">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516481614670-bed3a0e9cd4e?w=600&q=80" alt="狗狗水果">
+          <div class="knowledge-card-category">🍖 寵物營養</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>狗狗可以食咩生果？安全與禁忌清單</h3>
+          <p>夏天想俾狗狗食生果消暑，但係唔係所有生果都安全！藍莓、蘋果、西瓜可以食，提子、牛油果、榴槤就要避開。詳細清單一次過話你知。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年6月5日</span>
+            <span class="read-time">⏱ 5分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-cat-food-dangers.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="nutrition">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1490810194309-344b3661ba39?w=600&q=80" alt="貓貓飲食禁忌">
+          <div class="knowledge-card-category">🍖 寵物營養</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓貓飲食禁忌：洋蔥、蒜頭、朱古力點解有毒？</h3>
+          <p>好多人類美食對貓貓嚟講係毒藥！洋蔥同蒜頭會破壞紅血球，朱古力含有可致命嘅可可鹼。本文詳細解釋每種禁忌食物嘅中毒機制同緊急處理方法。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年3月30日</span>
+            <span class="read-time">⏱ 7分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- 🎯 行為訓練 -->
+      <a href="article-dog-training.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="training">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1553882809-a4f57e595701?w=600&q=80" alt="狗狗服從訓練">
+          <div class="knowledge-card-category">🎯 行為訓練</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>狗狗基礎服從訓練：由零開始</h3>
+          <p>坐低、等一等、過嚟——呢啲基本指令唔單止係生活規矩，更加係保護狗狗性命嘅關鍵。用正向獎勵方法，由最簡單嘅指令開始，新手主人都學得識。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年5月20日</span>
+            <span class="read-time">⏱ 8分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-dog-barking.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="training">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&q=80" alt="防止狗狗亂吠">
+          <div class="knowledge-card-category">🎯 行為訓練</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>點樣防止狗狗亂吠？正向訓練4步曲</h3>
+          <p>鄰居投訴狗狗亂吠？亂吠背後通常有原因——無聊、焦慮、警覺。用正向訓練方法，由找出原因到逐步減敏，等毛孩學識安靜都唔使鬧。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年4月8日</span>
+            <span class="read-time">⏱ 6分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-cat-scratching.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="training">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1548546738-850f0cb8c4b6?w=600&q=80" alt="貓貓亂抓">
+          <div class="knowledge-card-category">🎯 行為訓練</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓貓亂抓傢俬？教你用正向引導糾正</h3>
+          <p>貓貓抓梳化係天性，唔係曳！與其閂埋佢，不如學識點樣引導。提供合適嘅抓板、用貓薄荷吸引、獎勵正確行為，等傢俬同主子都可以共存。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年2月18日</span>
+            <span class="read-time">⏱ 5分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- 💊 疾病護理 -->
+      <a href="article-dog-vaccination.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="health">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&q=80" alt="狗狗疫苗">
+          <div class="knowledge-card-category">💊 疾病護理</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>狗狗疫苗接種時間表：幾時要打針？</h3>
+          <p>幼犬幾時開始打針？每年要打啲咩加強劑？香港常見嘅狗狗疫苗包括DHPPiL、狂犬病、狗房咳等。本文整理詳細接種時間表，幫你唔漏任何一支針。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年1月25日</span>
+            <span class="read-time">⏱ 7分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-cat-uti.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="health">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=600&q=80" alt="貓貓尿道">
+          <div class="knowledge-card-category">💊 疾病護理</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>貓貓尿道問題：早期症狀與預防</h3>
+          <p>尿道疾病係貓貓常見嘅健康問題，尤其係公貓。尿頻、血尿、亂尿尿都係警號。本文教你點樣早期發現、透過飲食同環境管理預防尿道問題。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年5月12日</span>
+            <span class="read-time">⏱ 8分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <a href="article-pet-skin.html" style="text-decoration:none;color:inherit">
+      <article class="knowledge-card" data-category="health">
+        <div class="knowledge-card-img">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1583337130417-3346a1be7893?w=600&q=80" alt="寵物皮膚病">
+          <div class="knowledge-card-category">💊 疾病護理</div>
+        </div>
+        <div class="knowledge-card-body">
+          <h3>寵物皮膚病懶人包：成因、治療與家居護理</h3>
+          <p>皮膚病係寵物最常見嘅求診原因之一。真菌、細菌、寄生蟲、敏感⋯⋯咁多成因點分？本文整合香港獸醫常用嘅診斷方法、治療方案同家居護理貼士。</p>
+          <div class="knowledge-card-meta">
+            <span>📅 2024年6月18日</span>
+            <span class="read-time">⏱ 9分鐘</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" id="newsletter">
+  <div class="newsletter-inner reveal">
+    <h2>訂閱 PawCity HK 寵物通訊</h2>
+    <p>每星期接收最新養寵資訊、專家貼士同活動推介，唔好錯過任何同毛孩有關嘅消息！</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('多謝訂閱！🐾');">
+      <input type="email" name="email" placeholder="輸入你嘅電郵地址" required />
+      <button type="submit">即時訂閱 →</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo" style="color:white;">
+        <div class="nav-logo-icon">🐾</div>
+        <div class="nav-logo-text"><span>PawCity</span> HK</div>
+      </a>
+      <p>香港最受歡迎嘅寵物資訊平台，專為毛孩家長提供最全面、最可靠嘅寵物資訊。由飲食、健康到玩樂，我哋乜都有。</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" aria-label="Facebook">📘</a>
+        <a href="#" class="footer-social" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social" aria-label="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>探索</h4>
+      <ul>
+        <li><a href="/">寵物好去處</a></li>
+        <li><a href="knowledge.html">養寵資訊</a></li>
+        <li><a href="laws.html">法例須知</a></li>
+        <li><a href="health.html">健康護理</a></li>
+        <li><a href="events.html">活動資訊</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>資源</h4>
+      <ul>
+        <li><a href="#">獸醫網絡</a></li>
+        <li><a href="#">寵物保險</a></li>
+        <li><a href="#">領養資訊</a></li>
+        <li><a href="#">寵物移民</a></li>
+        <li><a href="#">緊急支援</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>關於</h4>
+      <ul>
+        <li><a href="#">關於我哋</a></li>
+        <li><a href="#">合作查詢</a></li>
+        <li><a href="#">廣告查詢</a></li>
+        <li><a href="#">私隱政策</a></li>
+        <li><a href="#">使用條款</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 PawCity HK · 用 🐾 為香港毛孩而造</p>
+    <div class="footer-bottom-links">
+      <a href="#">私隱政策</a>
+      <a href="#">使用條款</a>
+      <a href="#">Cookie設定</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- JAVASCRIPT -->
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2000);
+});
+
+(function createPawParticles() {
+  const container = document.getElementById('pawParticles');
+  const paw = '🐾';
+  for (let i = 0; i < 15; i++) {
+    const el = document.createElement('div');
+    el.className = 'paw-particle';
+    el.textContent = paw;
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (14 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (15 + Math.random() * 25) + 's';
+    el.style.animationDelay = (Math.random() * 20) + 's';
+    container.appendChild(el);
+  }
+})();
+
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  const bt = document.getElementById('backToTop');
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 80);
+  bt.classList.toggle('visible', y > 500);
+});
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .stagger-children').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// Category filter
+const topics = document.querySelectorAll('.knowledge-topic');
+const articles = document.querySelectorAll('.knowledge-card');
+const resultCount = document.getElementById('resultCount');
+const categoryNames = {
+  all: '全部文章',
+  dog: '狗狗知識',
+  cat: '貓貓知識',
+  'small-pet': '小寵物',
+  nutrition: '寵物營養',
+  training: '行為訓練',
+  health: '疾病護理'
+};
+
+topics.forEach(topic => {
+  topic.addEventListener('click', function() {
+    topics.forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+
+    const filter = this.dataset.category;
+    let visibleCount = 0;
+
+    articles.forEach(article => {
+      if (filter === 'all' || article.dataset.category === filter) {
+        article.style.display = '';
+        visibleCount++;
+      } else {
+        article.style.display = 'none';
+      }
+    });
+
+    resultCount.textContent = `顯示 ${visibleCount} 篇${filter === 'all' ? '' : ' ' + categoryNames[filter]}`;
+  });
+});
+
+console.log('🐾 PawCity HK Knowledge loaded!');
+</script>
+</body>
+</html>
