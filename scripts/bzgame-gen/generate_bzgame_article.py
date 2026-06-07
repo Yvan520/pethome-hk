@@ -47,7 +47,8 @@ def prompt(t):
 def parse_md(md):
     c = []; lines = md.strip().split("\n"); i = 0
     ih = False; th = []; tr = []; ct = []
-    def fl(): nonlocal ct
+    def fl():
+        nonlocal ct
         if ct: c.append({"type":"p","text":" ".join(ct).strip()}); ct = []
     tbl = lambda l: l.startswith("|") and l.endswith("|")
     while i < len(lines):
