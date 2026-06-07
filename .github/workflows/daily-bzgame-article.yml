@@ -1,0 +1,45 @@
+name: Daily BZGame Article
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install openai
+
+      - name: Generate article
+        env:
+          LONGCAT_API_KEY: ${{ secrets.LONGCAT_API_KEY }}
+          LONGCAT_API_BASE_URL: ${{ secrets.LONGCAT_API_BASE_URL }}
+          LONGCAT_MODEL_NAME: ${{ secrets.LONGCAT_MODEL_NAME }}
+        run: |
+          python main/scripts/bzgame-gen/generate_bzgame_article.py \
+            --target-dir site
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
