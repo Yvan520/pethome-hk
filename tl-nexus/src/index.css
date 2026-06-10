@@ -1,17 +1,13 @@
 @import "tailwindcss";
 
-@font-face {
-  font-display: swap;
-}
-
 .font-cinzel {
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
 }
 
 body {
   background-color: #0a0a12;
   color: #ffffff;
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
 }
 
 /* Smooth anchor scroll */
