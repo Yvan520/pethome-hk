@@ -24,12 +24,8 @@ export default function DungeonsSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a227]/30 to-transparent" />
 
       {/* Banner */}
-      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden">
-        <img
-          src="/images/dungeon-banner.jpg"
-          alt="副本攻略"
-          className="w-full h-full object-cover object-center"
-        />
+      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden bg-gradient-to-r from-[#0a0510] via-[#0a1a0a] to-[#06060e]">
+        <div className="absolute inset-0 opacity-[0.06]" style={{backgroundImage: 'repeating-linear-gradient(45deg, #3498db 0px, #3498db 1px, transparent 1px, transparent 30px)'}} />
         <div className="absolute inset-0 bg-gradient-to-b from-[#06060e]/60 via-transparent to-[#06060e]" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
@@ -225,16 +221,18 @@ export default function DungeonsSection() {
           <h3 className="font-cinzel text-2xl text-center text-white mb-8">游戏截图</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { src: "/images/ss_01.jpg", label: "探索索利西姆" },
-              { src: "/images/dungeon-banner.jpg", label: "副本战斗" },
-              { src: "/images/pvp-banner.jpg", label: "PVP战场" },
-              { src: "/images/weapons-banner.jpg", label: "武器系统" },
-            ].map((img, i) => (
+              { gradient: "from-[#1a0a2a] to-[#0a0515]", icon: "🌍", label: "探索索利西姆" },
+              { gradient: "from-[#0a1a0a] to-[#051005]", icon: "⚔️", label: "副本战斗" },
+              { gradient: "from-[#1a0505] to-[#0a0505]", icon: "🏴", label: "PVP战场" },
+              { gradient: "from-[#0a0a1a] to-[#050510]", icon: "🗡️", label: "武器系统" },
+            ].map((item, i) => (
               <div key={i} className="group relative overflow-hidden rounded-xl border border-[#c9a227]/20 hover:border-[#c9a227]/50 transition-all duration-300">
-                <img src={img.src} alt={img.label} className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  {img.label}
+                <div className={`w-full h-48 bg-gradient-to-br ${item.gradient} flex items-center justify-center transition-transform duration-500 group-hover:scale-110`}>
+                  <span className="text-6xl opacity-30 group-hover:opacity-50 transition-opacity">{item.icon}</span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-sm font-medium">
+                  {item.label}
                 </div>
               </div>
             ))}

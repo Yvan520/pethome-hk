@@ -13,12 +13,8 @@ export default function PvpSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a227]/30 to-transparent" />
 
       {/* Banner */}
-      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden">
-        <img
-          src="/images/pvp-banner.jpg"
-          alt="PVP指南"
-          className="w-full h-full object-cover object-center"
-        />
+      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden bg-gradient-to-r from-[#0a0505] via-[#1a0a0a] to-[#0a0a12]">
+        <div className="absolute inset-0 opacity-[0.06]" style={{backgroundImage: 'repeating-linear-gradient(-45deg, #ff4757 0px, #ff4757 1px, transparent 1px, transparent 30px)'}} />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a12]/60 via-transparent to-[#0a0a12]" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">

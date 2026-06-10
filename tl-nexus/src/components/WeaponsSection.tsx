@@ -26,13 +26,9 @@ export default function WeaponsSection() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c9a227]/30 to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_100%_50%,rgba(201,162,39,0.04)_0%,transparent_60%)]" />
 
-      {/* Banner Image */}
-      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden">
-        <img
-          src="/images/weapons-banner.jpg"
-          alt="武器系统"
-          className="w-full h-full object-cover object-center"
-        />
+      {/* Banner */}
+      <div className="relative h-48 sm:h-64 mb-16 overflow-hidden bg-gradient-to-r from-[#0f0b1a] via-[#1a0a0a] to-[#0a0510]">
+        <div className="absolute inset-0 opacity-[0.06]" style={{backgroundImage: 'repeating-linear-gradient(45deg, #c9a227 0px, #c9a227 1px, transparent 1px, transparent 30px)'}} />
         <div className="absolute inset-0 bg-gradient-to-b from-[#06060e]/50 via-transparent to-[#06060e]" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
