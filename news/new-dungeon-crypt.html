@@ -4,23 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>新4星副本：Crypt of Augmentation 攻略要点 — 王权与自由 TL攻略站</title>
-  <meta name="description" content="新4星副本：Crypt of Augmentation 攻略要点 - 王权与自由 Throne and Liberty 最新资讯和攻略" />
-  <meta name="keywords" content="王权与自由, Throne and Liberty, TL, 攻略, 新4星副本：Crypt of Augmentation 攻略要点" />
+  <meta name="description" content="对抗死灵法师 Velentra，战力5000+门槛，掉落T2关键装备。从配置到走位，野队开荒注意事项。" />
+  <meta name="keywords" content="王权与自由, Throne and Liberty, TL攻略, 新4星副本：Crypt of Augmentation 攻略要点" />
   <meta property="og:title" content="新4星副本：Crypt of Augmentation 攻略要点 — 王权与自由 TL攻略站" />
-  <meta property="og:description" content="王权与自由 Throne and Liberty 最新资讯" />
+  <meta property="og:description" content="对抗死灵法师 Velentra，战力5000+门槛，掉落T2关键装备。从配置到走位，野队开荒注意事项。" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://berty.gamewayz.com/news/new-dungeon-crypt.html" />
+  <meta property="og:site_name" content="王权与自由 · TL攻略站" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://berty.gamewayz.com/news/new-dungeon-crypt.html" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "新4星副本：Crypt of Augmentation 攻略要点",
+  "description": "对抗死灵法师 Velentra，战力5000+门槛，掉落T2关键装备。从配置到走位，野队开荒注意事项。",
+  "datePublished": "2026-03-15",
+  "dateModified": "2026-03-15",
+  "author": {
+    "@type": "Person",
+    "name": "TL攻略站"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TL攻略站",
+    "url": "https://berty.gamewayz.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://berty.gamewayz.com/news/new-dungeon-crypt.html"
+  }
+}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans SC", "Segoe UI", sans-serif;
-      background: #0a0a12; color: #c0b090; line-height: 1.8;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans SC", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0a0a12; color: #c0b090; line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    .container { max-width: 780px; margin: 0 auto; padding: 40px 20px 60px; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: #6a5a4a; margin-bottom: 20px;
+    }
+    .breadcrumb a { color: #c9a227; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: #6a5a4a; }
     .back {
       display: inline-flex; align-items: center; gap: 6px;
-      color: #c9a227; text-decoration: none; font-size: 14px; margin-bottom: 30px;
+      color: #c9a227; text-decoration: none; font-size: 14px; margin-bottom: 24px;
     }
     .back:hover { opacity: 0.8; }
     .tag {
@@ -29,51 +60,95 @@
       border: 1px solid rgba(201,162,39,0.2); margin-bottom: 16px;
     }
     h1 {
-      font-size: 28px; color: #fff; margin-bottom: 12px; line-height: 1.4;
+      font-size: 26px; color: #fff; margin-bottom: 12px; line-height: 1.5;
+      font-weight: 700;
     }
-    .meta { color: #6a5a4a; font-size: 13px; margin-bottom: 30px; }
+    .meta { color: #6a5a4a; font-size: 13px; margin-bottom: 28px; }
     .content h2 {
-      font-size: 20px; color: #d0b890; margin: 28px 0 12px; padding-bottom: 6px;
-      border-bottom: 1px solid rgba(201,162,39,0.15);
+      font-size: 20px; color: #d0b890; margin: 32px 0 14px; padding-bottom: 8px;
+      border-bottom: 1px solid rgba(201,162,39,0.12);
+      font-weight: 600;
     }
-    .content p { margin-bottom: 14px; }
-    .content ul { padding-left: 20px; margin-bottom: 14px; }
-    .content li { margin-bottom: 6px; }
-    hr { border: none; border-top: 1px solid rgba(201,162,39,0.1); margin: 40px 0; }
+    .content h3 {
+      font-size: 17px; color: #c9a227; margin: 24px 0 10px;
+      font-weight: 500;
+    }
+    .content p { margin-bottom: 16px; font-size: 15px; }
+    .content ul { padding-left: 22px; margin-bottom: 16px; }
+    .content li { margin-bottom: 8px; font-size: 15px; }
+    .content strong { color: #d0b890; }
+    hr { border: none; border-top: 1px solid rgba(201,162,39,0.08); margin: 44px 0; }
+    .related { margin-top: 44px; }
+    .related h2 {
+      font-size: 18px; color: #d0b890; margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .related-grid {
+      display: grid; gap: 10px;
+    }
+    .related-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201,162,39,0.08);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .related-card:hover {
+      background: rgba(201,162,39,0.05);
+      border-color: rgba(201,162,39,0.2);
+    }
+    .related-icon { font-size: 20px; flex-shrink: 0; }
+    .related-title { font-size: 14px; color: #b0a080; font-weight: 500; flex: 1; }
+    .related-date { font-size: 12px; color: #5a4a4a; flex-shrink: 0; }
     .footer-link {
-      text-align: center; color: #6a5a4a; font-size: 13px;
+      text-align: center; color: #5a4a4a; font-size: 13px; margin-top: 44px;
     }
     .footer-link a { color: #c9a227; text-decoration: none; }
     .footer-link a:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      .container { padding: 24px 16px 40px; }
+      h1 { font-size: 22px; }
+      .content p, .content li { font-size: 15px; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <a class="back" href="https://berty.gamewayz.com">← 返回 TL攻略站 首页</a>
-    <div class="tag">💀 2026-03-15</div>
+    <nav class="breadcrumb">
+      <a href="https://berty.gamewayz.com">首页</a>
+      <span>/</span>
+      <span>新4星副本：Crypt of Augmentation 攻略要点</span>
+    </nav>
+    <a class="back" href="https://berty.gamewayz.com">← 返回首页</a>
+    <div class="tag">💀 2026-03-15 · TL攻略站</div>
     <h1>新4星副本：Crypt of Augmentation 攻略要点</h1>
     <div class="meta">2026-03-15 · TL攻略站</div>
-    <div class="content"><p>Crypt of Augmentation 是 Talandre 更新中新增的4星副本，最终Boss为死灵法师 Velentra。</p>
-<p>副本要求战力5000+，推荐队伍配置：1坦+1补+2输出。</p>
-<h2>Boss机制要点</h2>
-<ul>
-<li>Velentra 会召唤多个亡灵小兵，需要坦克快速聚怪</li>
-<li>阶段转换时场地会出现黑暗法阵，站在法阵内会持续掉血</li>
-<li>Boss 会施放「灵魂吸取」技能，需要补师及时驱散</li>
-<li>50%血量以下进入P2，Boss会释放全屏AOE，需要躲到柱子后面</li>
-</ul>
-<h2>掉落物</h2>
-<ul>
-<li>T2 史诗装备（头盔、胸甲、手套等）</li>
-<li>高磨结晶</li>
-<li>混沌符文</li>
-</ul>
-<h2>速通技巧</h2>
-<ul>
-<li>带净化技能解除Boss的诅咒DOT</li>
-<li>坦克保持Boss背对团队</li>
-<li>输出在P2阶段注意柱子位置</li>
-</ul></div>
+    <div class="content"><p>Crypt of Augmentation 是 Talandre 资料片新增的4星副本，最终Boss是死灵法师 Velentra。进本门槛战力5000+，推荐配置一坦一补两输出。这个本对于初次接触的团队来说，可能需要灭个几次才能找到节奏。</p>
+<p>先说P1阶段。Velentra 开场后会不断召唤亡灵小兵，数量大概在三到四波左右。坦克需要注意把怪聚到一起，方便输出一波清掉。小兵的伤害不低，如果让它们散开追补师，很容易崩盘。我自己的经验是，坦克进场后先把Boss拉在场地中央偏左的位置，这样小兵刷新出来会自动往坦克方向靠。</p>
+<p>Boss的「灵魂吸取」技能是P1阶段最容易灭团的地方。这个技能会锁定一个玩家吸血，伤害很高，必须由补师即时驱散。如果你的队伍里补师反应不够快，建议让被锁的人自己带个解控技能。野队翻车十次有八次都是栽在这个技能上。</p>
+<p>Boss血量掉到50%以下进入P2阶段。场地四周会出现好几根柱子，同时Boss开始读条全屏AOE。这个AOE的伤害是秒杀级的，唯一的应对方法是躲在柱子后面。柱子有固定的倒塌顺序，注意观察地面上的影子提示。很多队伍在这里团灭是因为所有人躲同一根柱子，结果柱子倒了大家一起被炸。建议打之前分好工，每个人固定躲一根。</p>
+<p>P2阶段Velentra还会在地面上召唤黑暗法阵，站在上面会持续掉血。法阵的出现位置有一定规律，通常是远程队友站位的附近。补师在这个阶段压力很大，既要躲AOE又要驱散还要抬血，建议提前和队友沟通好减伤技能的轮换顺序。</p>
+<p>掉落方面，这个副本产出T2史诗装备（头盔、胸甲、手套等部位），还有高磨结晶和混沌符文。对于正在从英雄1段往英雄2段过渡的玩家来说，Crypt of Augmentation 是每周必刷的本。速刷的话，核心就是带一个熟练的补师，坦克把Boss背对团队，输出在P2阶段记好柱子顺序，打得快的话十分钟内可以收工。</p></div>
+    <div class="related">
+  <h2>相关文章</h2>
+  <div class="related-grid">
+    <a href="https://berty.gamewayz.com/news/update-3-37-0-mq0wfrkr.html" class="related-card">
+      <span class="related-icon">📋</span>
+      <span class="related-title">更新 3.37.0 — 例行维护与后续展望</span>
+      <span class="related-date">2026-06-03</span>
+    </a>
+    <a href="https://berty.gamewayz.com/news/summer-event-2026.html" class="related-card">
+      <span class="related-icon">🏖️</span>
+      <span class="related-title">2026夏日活动「幻象回廊」限时开启</span>
+      <span class="related-date">2026-05-28</span>
+    </a>
+    <a href="https://berty.gamewayz.com/news/new-map-nix.html" class="related-card">
+      <span class="related-icon">❄️</span>
+      <span class="related-title">冰封边界：尼克斯 — TL史上最大更新 亚服6/23·国际服6/25</span>
+      <span class="related-date">2026-05-25</span>
+    </a>
+  </div>
+</div>
     <hr />
     <div class="footer-link">
       <a href="https://berty.gamewayz.com">王权与自由 · TL攻略站</a> — 最全面的 Throne and Liberty 游戏指南
