@@ -30,17 +30,15 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#0a0a12]" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0f0b1a]/80 via-[#0a0a12] to-[#050510]" />
-      <div className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, #c9a227 0%, transparent 50%),
-                           radial-gradient(circle at 80% 20%, #ff4757 0%, transparent 50%),
-                           radial-gradient(circle at 50% 80%, #3498db 0%, transparent 50%)`
-        }}
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a12]" />
+
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a12]/70 via-[#0a0a12]/40 to-[#0a0a12]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a12]/60 via-transparent to-[#0a0a12]/60" />
 
       {/* Animated Particles */}
       {particles.map((p) => (
