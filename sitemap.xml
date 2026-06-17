@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://berty.gamewayz.com/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -73,21 +73,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pethome.gamewayz.com/article-cat-kidney-disease.html</loc>
-    <lastmod>2026年06月12日</lastmod>
+    <loc>https://berty.gamewayz.com/news/nix-prep-june.html</loc>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-pet-heatstroke-emergency.html</loc>
-    <lastmod>2026年06月16日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-pet-travel-health.html</loc>
-    <lastmod>2026年06月17日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
