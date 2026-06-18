@@ -78,4 +78,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://pethome.gamewayz.com/article-pet-periodontal-disease.html</loc>
+    <lastmod>2026年06月18日</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
