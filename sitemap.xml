@@ -96,4 +96,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://pethome.gamewayz.com/article-kowloon-pet-malls.html</loc>
+    <lastmod>2026年06月21日</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
