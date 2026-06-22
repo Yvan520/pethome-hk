@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://berty.gamewayz.com/sitemap.xml
-
+Sitemap: https://gohk.gamewayz.com/sitemap.xml
