@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://berty.gamewayz.com/</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -79,33 +79,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pethome.gamewayz.com/article-pet-periodontal-disease.html</loc>
-    <lastmod>2026年06月18日</lastmod>
+    <loc>https://berty.gamewayz.com/news/nix-launch-preview.html</loc>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-saikung-pet-friendly.html</loc>
-    <lastmod>2026年06月19日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-hk-park-hiking.html</loc>
-    <lastmod>2026年06月20日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-kowloon-pet-malls.html</loc>
-    <lastmod>2026年06月21日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pethome.gamewayz.com/article-hk-island-dog-walk.html</loc>
-    <lastmod>2026年06月22日</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
